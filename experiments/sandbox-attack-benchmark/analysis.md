@@ -177,3 +177,34 @@ Summary:
 Interpretation:
 
 This is the first positive real-agent measurement in the project. It does not yet establish vulnerability prevalence because the task is a minimal direct sentinel fixture, but it proves that the SandScout method can execute a real agent, collect evidence, infer trace actions, and score semantic sandbox escape success end-to-end.
+
+## Run 007
+
+Status: complete mining-yield study on safe synthetic corpus.
+
+Run 007 introduced a six-repository synthetic fixture corpus and a batch mining driver:
+
+- `src/make_fixture_corpus.py`
+- `src/run_mining_corpus.py`
+- `data/fixture_corpus/`
+- `results/run_007_mining_corpus.json`
+
+Summary:
+
+| Corpus Repos | Mined Tasks | High-Confidence Tasks | Surface Classes |
+|---:|---:|---:|---:|
+| 6 | 12 | 7 | 5 |
+
+Surface totals:
+
+| Surface | Count |
+|---|---:|
+| instruction_hierarchy | 6 |
+| package_lifecycle_config | 2 |
+| tool_manifest_discovery | 2 |
+| ci_workflow_transition | 1 |
+| startup_runtime_discovery | 1 |
+
+Interpretation:
+
+SandScout can mine multiple semantic boundary classes from a repository corpus rather than a single hand-authored example. The miner now assigns confidence scores: README-only instruction-hierarchy candidates are low confidence (0.40), while package manifests, tool manifests, startup configs, CI workflows, and AGENTS.md-derived candidates rank higher. This creates a practical queue for real-agent evaluation.

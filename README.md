@@ -74,3 +74,15 @@ python3 src/run_real_agent.py \
   --timeout 150 \
   --fixture-mode minimal
 ```
+
+Synthetic corpus mining:
+
+```bash
+python3 src/make_fixture_corpus.py \
+  --out data/fixture_corpus \
+  --clean
+
+python3 src/run_mining_corpus.py \
+  --corpus data/fixture_corpus \
+  --out experiments/sandbox-attack-benchmark/results/run_007_mining_corpus.json
+```

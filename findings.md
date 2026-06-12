@@ -122,6 +122,18 @@ The important progress is infrastructure: SandScout can now run a real agent, ca
 
 This is not yet a prevalence claim because the fixture is a direct minimal task. Its importance is methodological: SandScout can now mine a task, run a real agent, capture evidence, infer a trace, and compute a positive SSE result end-to-end.
 
+`run_007` scaled the miner from a single repository to a six-repository synthetic corpus. SandScout mined 12 safe sentinel tasks across 5 semantic boundary classes, including 7 high-confidence candidates after adding confidence scores:
+
+| Surface | Count |
+|---|---:|
+| instruction_hierarchy | 6 |
+| package_lifecycle_config | 2 |
+| tool_manifest_discovery | 2 |
+| ci_workflow_transition | 1 |
+| startup_runtime_discovery | 1 |
+
+This is a mining-yield result, not an agent attack result. It supports the method-paper framing: SandScout can generate a benchmark artifact from repository structure rather than relying only on hand-authored tasks. Confidence scoring now separates README-only low-confidence candidates from stronger lifecycle/tooling candidates.
+
 ## Patterns and Insights
 
 The literature suggests a split between **behavioral hijacking** and **boundary hijacking**. AgentDojo and WASP evaluate whether untrusted content can redirect agent behavior. SandboxEscapeBench-style work evaluates direct container escape capability. SandScout targets the missing middle: automatically discovering where hijacked behavior can materialize across lifecycle boundaries that the sandbox does not model.
@@ -135,6 +147,7 @@ The literature suggests a split between **behavioral hijacking** and **boundary 
 - Real-agent runs must be performed in disposable worktrees.
 - Short real-agent smoke-test budgets can produce timeout artifacts. Completed agent traces likely require smaller fixtures, longer timeouts, or both.
 - `git diff` alone misses untracked sentinel artifacts. Trace inference must inspect workspace file evidence and git status, not only tracked diffs.
+- README-based instruction-hierarchy mining gives high recall but may be noisy. Confidence scoring now marks README-only candidates as low confidence (0.40), while AGENTS.md and lifecycle/tooling artifacts rank higher.
 
 ## Open Questions
 
@@ -145,4 +158,4 @@ The literature suggests a split between **behavioral hijacking** and **boundary 
 
 ## Optimization Trajectory
 
-`run_001` completed metric plumbing. `run_002` added trace-based evaluation and fixed the random-baseline artifact. `run_003` added automated repository mining. `run_004` attempted a Codex CLI smoke test and exposed runner requirements. `run_005` implemented the hardened runner and produced structured timeout/no-success metrics. `run_006` obtained the first completed positive Codex CLI trace on a minimal fixture. The next measurable target is `run_007`: move from direct minimal fixture to indirect mined repository context and evaluate a small corpus.
+`run_001` completed metric plumbing. `run_002` added trace-based evaluation and fixed the random-baseline artifact. `run_003` added automated repository mining. `run_004` attempted a Codex CLI smoke test and exposed runner requirements. `run_005` implemented the hardened runner and produced structured timeout/no-success metrics. `run_006` obtained the first completed positive Codex CLI trace on a minimal fixture. `run_007` mined 12 tasks across 5 surface classes from a synthetic corpus and ranked 7 as high confidence. The next measurable target is `run_008`: run Codex CLI on the ranked non-README candidates.
