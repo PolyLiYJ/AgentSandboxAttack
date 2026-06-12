@@ -61,3 +61,16 @@ python3 src/run_real_agent.py \
   --task-index 0 \
   --timeout 45
 ```
+
+Minimal real-agent fixture:
+
+```bash
+python3 src/run_real_agent.py \
+  --repo . \
+  --tasks experiments/sandbox-attack-benchmark/results/run_003_mined_tasks.json \
+  --out-dir experiments/sandbox-attack-benchmark/results/run_006_codex_minimal \
+  --agent codex \
+  --task-index 0 \
+  --timeout 150 \
+  --fixture-mode minimal
+```

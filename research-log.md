@@ -13,3 +13,4 @@ Chronological record of research decisions and actions. Append-only.
 | 7 | 2026-06-13 | inner-loop | H1 run_003: implemented `src/sandscout_miner.py` and generated one mined instruction-hierarchy candidate on the current repository. |
 | 8 | 2026-06-13 | inner-loop | H1 run_004: attempted Codex CLI real-agent smoke test in disposable workspace. Codex launched and inspected files, but repeated stream reconnects exceeded the wait budget; sentinel was not created. |
 | 9 | 2026-06-13 | inner-loop | H1 run_005: implemented hardened real-agent runner. Codex CLI timed out after 45 seconds, but the run produced structured prompt/stdout/stderr/diff/trace/summary and oracle metrics. |
+| 10 | 2026-06-13 | inner-loop | H1 run_006: added minimal fixture mode and fixed untracked-file trace inference. Codex CLI completed, created `.sse/instruction_hierarchy.sentinel`, and scored SSE-SR=1.00 on the minimal fixture. |
