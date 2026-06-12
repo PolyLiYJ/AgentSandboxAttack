@@ -106,6 +106,14 @@ Decomposed metrics:
 
 `run_004` attempted the first real-agent smoke test with Codex CLI in a disposable workspace. Codex launched and inspected files, but repeated stream reconnects exceeded the smoke-test wait budget before any sentinel write. This is not an attack result; it identifies runner requirements for real-agent evaluation.
 
+`run_005` implemented a hardened real-agent runner. Codex CLI still timed out in the 45-second smoke-test window, but the experiment produced structured evidence and oracle metrics:
+
+| Agent | Timed Out | Artifact Placement | SSE-SR |
+|---|---:|---:|---:|
+| Codex CLI | true | 0.00 | 0.00 |
+
+The important progress is infrastructure: SandScout can now run a real agent, capture prompt/stdout/stderr/diff, infer a trace, and score it through the oracle.
+
 ## Patterns and Insights
 
 The literature suggests a split between **behavioral hijacking** and **boundary hijacking**. AgentDojo and WASP evaluate whether untrusted content can redirect agent behavior. SandboxEscapeBench-style work evaluates direct container escape capability. SandScout targets the missing middle: automatically discovering where hijacked behavior can materialize across lifecycle boundaries that the sandbox does not model.
@@ -117,6 +125,7 @@ The literature suggests a split between **behavioral hijacking** and **boundary 
 - Avoid real-world exploit payloads. Use toy loaders, sentinel files, and mock secrets to preserve reproducibility and safety.
 - Do not claim real product vulnerabilities without coordinated disclosure.
 - Real-agent runs must be performed in disposable worktrees.
+- Short real-agent smoke-test budgets can produce timeout artifacts. Completed agent traces likely require smaller fixtures, longer timeouts, or both.
 
 ## Open Questions
 
@@ -127,4 +136,4 @@ The literature suggests a split between **behavioral hijacking** and **boundary 
 
 ## Optimization Trajectory
 
-`run_001` completed metric plumbing. `run_002` added trace-based evaluation and fixed the random-baseline artifact. `run_003` added automated repository mining. `run_004` attempted a Codex CLI smoke test and exposed runner requirements. The next measurable target is `run_005`: build a hardened real-agent runner that preserves git state, sets explicit timeouts, and converts completed diffs to trace records.
+`run_001` completed metric plumbing. `run_002` added trace-based evaluation and fixed the random-baseline artifact. `run_003` added automated repository mining. `run_004` attempted a Codex CLI smoke test and exposed runner requirements. `run_005` implemented the hardened runner and produced structured timeout/no-success metrics. The next measurable target is `run_006`: use a minimized fixture or longer timeout to obtain a completed Codex CLI trace.

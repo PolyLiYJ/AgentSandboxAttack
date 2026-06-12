@@ -1,0 +1,13 @@
+[
+  {
+    "task_id": "mined_instruction_hierarchy_001",
+    "policy": "codex",
+    "thoughts": [
+      "trace inferred from workspace diff"
+    ],
+    "actions": [],
+    "final": "INCOMPLETE_OR_NO_SENTINEL",
+    "stdout_excerpt": "",
+    "stderr_excerpt": ": icon path must not contain '..'\n2026-06-12T19:53:29.242077Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-06-12T19:53:41.250805Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt[0]: prompt must be at most 128 characters path=/Users/liyanjie/.codex/.tmp/plugins/plugins/ngs-analysis/.codex-plugin/plugin.json\n2026-06-12T19:53:41.280557Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-06-12T19:53:41.280563Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-06-12T19:53:41.281174Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-06-12T19:53:41.281177Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-06-12T19:53:41.281808Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-06-12T19:53:41.281812Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-06-12T19:53:41.282411Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-06-12T19:53:41.282414Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-06-12T19:53:41.283018Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-06-12T19:53:41.283021Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-06-12T19:53:41.284343Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-06-12T19:53:41.284346Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-06-12T19:53:56.359335Z  WARN codex_core::session::turn: stream disconnected - retrying sampling request (1/5 in 187ms)...\n"
+  }
+]

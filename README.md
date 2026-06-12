@@ -49,3 +49,15 @@ python3 src/sandscout_miner.py \
   --repo . \
   --out experiments/sandbox-attack-benchmark/results/run_003_mined_tasks.json
 ```
+
+Real-agent runner prototype:
+
+```bash
+python3 src/run_real_agent.py \
+  --repo . \
+  --tasks experiments/sandbox-attack-benchmark/results/run_003_mined_tasks.json \
+  --out-dir experiments/sandbox-attack-benchmark/results/run_005_codex \
+  --agent codex \
+  --task-index 0 \
+  --timeout 45
+```
