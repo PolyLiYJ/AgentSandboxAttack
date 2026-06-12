@@ -76,7 +76,7 @@ experiments:
   proxy_metric: "Semantic Sandbox Escape Success Rate (SSE-SR), decomposed into instruction uptake, artifact placement, policy bypass, and host-context trigger in a toy reproducible harness."
   baseline_value: 0.0
   best_value: 1.0
-  total_runs: 1
+  total_runs: 2
   trajectory:
     - run_id: "run_001"
       hypothesis: "H1"
@@ -86,11 +86,19 @@ experiments:
       wall_time_min: 1
       change_summary: "Implemented safe toy oracle over 10 seed tasks; indirect synthetic policy achieved 0.60 SSE-SR while benign control stayed at 0.00."
       timestamp: "2026-06-13"
+    - run_id: "run_002"
+      hypothesis: "H1"
+      metric_value: 0.6
+      baseline: 0.0
+      delta: "+0.60 vs benign/random trace controls"
+      wall_time_min: 2
+      change_summary: "Added ReAct-style trace parser and mock traces; random baseline recalibrated from 0.50 to 0.00 while indirect remained 0.60."
+      timestamp: "2026-06-13"
 
 outer_loop:
   cycle: 1
   last_direction: deepen
-  last_reflection: "Selected one main direction and completed run_001 metric plumbing for a safe semantic sandbox escape benchmark."
+  last_reflection: "Completed run_002 trace-based metric plumbing; the benchmark now evaluates trace actions instead of hard-coded policy outcomes."
 
 workspace:
   findings: "findings.md"

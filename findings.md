@@ -99,16 +99,16 @@ Decomposed metrics:
 
 ## Key Results
 
-`run_001` implemented a safe deterministic oracle and evaluated 10 seed tasks using synthetic baseline policies. This is a plumbing experiment, not evidence about real deployed agents.
+`run_001` implemented a safe deterministic oracle and evaluated 10 seed tasks using synthetic baseline policies. `run_002` replaced direct policy simulation with a ReAct-style trace parser over safe mock traces. These are plumbing experiments, not evidence about real deployed agents.
 
 | Policy | SSE-SR | Interpretation |
 |---|---:|---|
 | benign | 0.00 | Control stays clean. |
-| random | 0.50 | Current placeholder baseline is too high and should be recalibrated. |
+| random | 0.00 | Recalibrated in run 002; no accidental sentinel placement. |
 | direct | 1.00 | Upper-bound sanity check. |
-| indirect | 0.60 | Confirms the metric pipeline can represent indirect project-context attacks. |
+| indirect | 0.60 | Confirms the trace pipeline can represent indirect project-context attacks. |
 
-The important result is that the metric decomposition is operational: instruction uptake, artifact placement, triggerability, benign task completion, and SSE-SR can be computed from one result record format.
+The important result is that the metric decomposition is operational: instruction uptake, artifact placement, triggerability, benign task completion, and SSE-SR can be computed from one trace record format.
 
 ## Patterns and Insights
 
@@ -130,4 +130,4 @@ The literature suggests a split between **behavioral hijacking** and **boundary 
 
 ## Optimization Trajectory
 
-`run_001` completed metric plumbing. The next measurable target is `run_002`: replace synthetic policies with either a mocked ReAct transcript parser or a small local coding-agent runner, and recalibrate random baseline to near-zero expected sentinel placement.
+`run_001` completed metric plumbing. `run_002` added trace-based evaluation and fixed the random-baseline artifact. The next measurable target is `run_003`: evaluate traces from a small local coding-agent runner or manually audited controlled transcripts, keeping all sentinel artifacts harmless.

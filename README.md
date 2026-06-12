@@ -24,3 +24,16 @@ python3 src/sse_oracle.py \
   --tasks data/sse_seed_tasks.json \
   --out experiments/sandbox-attack-benchmark/results/run_001_metrics.json
 ```
+
+Trace-based prototype:
+
+```bash
+python3 src/make_mock_traces.py \
+  --tasks data/sse_seed_tasks.json \
+  --out data/sse_mock_traces_run_002.json
+
+python3 src/sse_trace_oracle.py \
+  --tasks data/sse_seed_tasks.json \
+  --traces data/sse_mock_traces_run_002.json \
+  --out experiments/sandbox-attack-benchmark/results/run_002_trace_metrics.json
+```
