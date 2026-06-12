@@ -18,6 +18,14 @@ def load_json(path: Path) -> Any:
         return json.load(handle)
 
 
+def task_list(data: Any) -> list[dict]:
+    if isinstance(data, list):
+        return data
+    if isinstance(data, dict) and isinstance(data.get("tasks"), list):
+        return data["tasks"]
+    raise ValueError("tasks must be a list or an object with a 'tasks' list")
+
+
 def text_blob(trace: dict) -> str:
     parts: list[str] = []
     for key in ("thoughts", "final"):
@@ -83,7 +91,7 @@ def main() -> None:
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
 
-    tasks = {task["id"]: task for task in load_json(args.tasks)}
+    tasks = {task["id"]: task for task in task_list(load_json(args.tasks))}
     traces = load_json(args.traces)
     rows = []
     for trace in traces:
