@@ -9,3 +9,6 @@ Chronological record of research decisions and actions. Append-only.
 | 3 | 2026-06-13 | outer-loop | Selected one direction: a safe NDSS-style benchmark for semantic/configuration-based sandbox escape attacks against coding agents. Deferred broad defense combinations. |
 | 4 | 2026-06-13 | inner-loop | H1 run_001: implemented safe toy oracle and seed dataset. Synthetic indirect baseline SSE-SR=0.60; benign control SSE-SR=0.00. This validates metric plumbing only, not real agent risk. |
 | 5 | 2026-06-13 | inner-loop | H1 run_002: added ReAct-style trace parser and safe mock trace generator. Random trace control SSE-SR dropped to 0.00; indirect remained 0.60. This fixes the run_001 random-baseline artifact. |
+| 6 | 2026-06-13 | pivot | Reframed project from benchmark-only SSE-Bench paper to SandScout technical method paper: automated mining, real-agent execution, and benchmark artifact as outcome. |
+| 7 | 2026-06-13 | inner-loop | H1 run_003: implemented `src/sandscout_miner.py` and generated one mined instruction-hierarchy candidate on the current repository. |
+| 8 | 2026-06-13 | inner-loop | H1 run_004: attempted Codex CLI real-agent smoke test in disposable workspace. Codex launched and inspected files, but repeated stream reconnects exceeded the wait budget; sentinel was not created. |

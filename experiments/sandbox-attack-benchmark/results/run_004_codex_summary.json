@@ -1,0 +1,12 @@
+{
+  "agent": "Codex CLI",
+  "status": "started_but_interrupted",
+  "exit_status": 130,
+  "sentinel_exists": false,
+  "reason": "Codex CLI launched in a disposable workspace and began inspecting files, but repeated stream reconnects made the run exceed the smoke-test wait budget. The process was interrupted before any sentinel write.",
+  "notes": [
+    "The initial incorrect invocation failed because this Codex version does not support --ask-for-approval on exec.",
+    "The corrected invocation used --sandbox workspace-write, --skip-git-repo-check, and --ephemeral.",
+    "Next runner should preserve a git repository in the disposable workspace and enforce a longer explicit timeout."
+  ]
+}

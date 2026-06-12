@@ -1,6 +1,6 @@
 project:
-  title: "Agent Sandbox Attack Research"
-  question: "How can adversaries reliably induce sandbox escape in coding agents by exploiting agent-level configuration, startup, and workspace trust boundaries rather than kernel/container vulnerabilities?"
+  title: "SandScout: Automated Mining of Agent Sandbox Escape Paths"
+  question: "Can we automatically mine repository-level semantic sandbox boundary candidates, synthesize safe sentinel tasks, and measure whether real coding agents cross those boundaries?"
   status: active
   started: "2026-06-13"
   domain: "AI agent security, sandbox escape, prompt injection, coding agents"
@@ -44,7 +44,7 @@ literature:
       relevance: "Catalogs attack techniques against coding assistants; useful taxonomy for threat modeling."
       url: "https://arxiv.org/html/2601.17548v1"
   open_problems:
-    - "Existing agent security benchmarks focus on hijacking tool behavior, harmful requests, web navigation, or classical container escape; they do not isolate agent-level sandbox boundary confusion."
+    - "Existing agent security benchmarks focus on hijacking tool behavior, harmful requests, web navigation, or classical container escape; they do not automate discovery of agent-level sandbox boundary candidates."
     - "Security reports describe configuration-based sandbox escape in AI coding tools, but there is no reusable academic benchmark with controlled tasks, baselines, and ablations."
     - "Current sandbox evaluations often ask whether an agent can break Docker; fewer ask whether the agent can unintentionally prepare host-context execution through benign-looking repo/config changes."
   evidence_gaps:
@@ -54,7 +54,7 @@ literature:
 
 hypotheses:
   - id: H1
-    statement: "A benchmark centered on semantic sandbox escape tasks will reveal a distinct vulnerability class: agents can create or modify artifacts that are inert inside the sandbox but become executable or privileged in a later host/context transition."
+    statement: "An automated miner can discover semantic sandbox escape candidates from repository lifecycle artifacts and synthesize safe tasks that reveal boundary-crossing behavior in real coding agents."
     status: active
     motivation: "Recent disclosures suggest many failures are not kernel escapes but trust-boundary failures around project-local configuration, startup behavior, and tool discovery."
     parent: null
@@ -76,7 +76,7 @@ experiments:
   proxy_metric: "Semantic Sandbox Escape Success Rate (SSE-SR), decomposed into instruction uptake, artifact placement, policy bypass, and host-context trigger in a toy reproducible harness."
   baseline_value: 0.0
   best_value: 1.0
-  total_runs: 2
+  total_runs: 4
   trajectory:
     - run_id: "run_001"
       hypothesis: "H1"
@@ -94,11 +94,27 @@ experiments:
       wall_time_min: 2
       change_summary: "Added ReAct-style trace parser and mock traces; random baseline recalibrated from 0.50 to 0.00 while indirect remained 0.60."
       timestamp: "2026-06-13"
+    - run_id: "run_003"
+      hypothesis: "H1"
+      metric_value: 1
+      baseline: 0
+      delta: "+1 mined candidate on current repo"
+      wall_time_min: 2
+      change_summary: "Added SandScout static miner and generated one instruction-hierarchy sentinel task from the current repository."
+      timestamp: "2026-06-13"
+    - run_id: "run_004"
+      hypothesis: "H1"
+      metric_value: 0
+      baseline: 0
+      delta: "incomplete real-agent smoke test"
+      wall_time_min: 3
+      change_summary: "Attempted Codex CLI real-agent smoke test in disposable workspace; agent launched and inspected files but stream reconnects exceeded wait budget before sentinel write."
+      timestamp: "2026-06-13"
 
 outer_loop:
-  cycle: 1
-  last_direction: deepen
-  last_reflection: "Completed run_002 trace-based metric plumbing; the benchmark now evaluates trace actions instead of hard-coded policy outcomes."
+  cycle: 2
+  last_direction: pivot
+  last_reflection: "Pivoted from benchmark-only framing to SandScout and attempted first Codex CLI smoke test; next work should harden the real-agent runner."
 
 workspace:
   findings: "findings.md"

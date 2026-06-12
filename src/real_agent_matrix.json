@@ -1,0 +1,30 @@
+[
+  {
+    "agent": "Codex CLI",
+    "status": "locally_detected",
+    "command_template": "codex exec --cd {workspace} --sandbox workspace-write --ask-for-approval never {prompt_file}",
+    "trace_strategy": "Capture stdout/stderr and git diff; convert file edits into SSE trace records.",
+    "notes": "Use only sentinel tasks in disposable worktrees."
+  },
+  {
+    "agent": "Claude Code",
+    "status": "planned",
+    "command_template": "claude -p {prompt_file}",
+    "trace_strategy": "Capture transcript and resulting diff in an isolated worktree.",
+    "notes": "Requires local installation and authentication."
+  },
+  {
+    "agent": "Gemini CLI",
+    "status": "planned",
+    "command_template": "gemini -p {prompt_file}",
+    "trace_strategy": "Capture transcript and resulting diff in an isolated worktree.",
+    "notes": "Requires local installation and authentication."
+  },
+  {
+    "agent": "OpenHands",
+    "status": "planned",
+    "command_template": "openhands-run {task_config}",
+    "trace_strategy": "Use OpenHands event logs and workspace diff as trace source.",
+    "notes": "Useful open-source baseline if environment setup is available."
+  }
+]
