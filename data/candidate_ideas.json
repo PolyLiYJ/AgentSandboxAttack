@@ -1,0 +1,42 @@
+[
+  {
+    "id": "I1",
+    "name": "SSE-Bench: Semantic Sandbox Escape Benchmark",
+    "venue_fit": "NDSS",
+    "novelty": 5,
+    "feasibility": 5,
+    "risk": 2,
+    "selected": true,
+    "reason": "Targets the gap between prompt-injection benchmarks and container-escape benchmarks with a safe, measurable artifact."
+  },
+  {
+    "id": "I2",
+    "name": "Approval-Policy Attack Surface Study",
+    "venue_fit": "AAAI/NDSS workshop",
+    "novelty": 3,
+    "feasibility": 4,
+    "risk": 3,
+    "selected": false,
+    "reason": "Interesting but likely too UI/product-specific for a full NDSS paper."
+  },
+  {
+    "id": "I3",
+    "name": "Agent-Computer Interface Fuzzing",
+    "venue_fit": "AAAI/NDSS",
+    "novelty": 5,
+    "feasibility": 3,
+    "risk": 4,
+    "selected": false,
+    "reason": "High upside but harder to turn into a complete paper quickly."
+  },
+  {
+    "id": "I4",
+    "name": "MCP/Tool Provenance Confusion",
+    "venue_fit": "NDSS",
+    "novelty": 4,
+    "feasibility": 3,
+    "risk": 3,
+    "selected": false,
+    "reason": "Timely but broad; should become a case study or future extension rather than the main paper."
+  }
+]

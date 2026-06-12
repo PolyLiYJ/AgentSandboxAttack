@@ -1,0 +1,102 @@
+project:
+  title: "Agent Sandbox Attack Research"
+  question: "How can adversaries reliably induce sandbox escape in coding agents by exploiting agent-level configuration, startup, and workspace trust boundaries rather than kernel/container vulnerabilities?"
+  status: active
+  started: "2026-06-13"
+  domain: "AI agent security, sandbox escape, prompt injection, coding agents"
+
+literature:
+  key_papers:
+    - id: "agentdojo2024"
+      title: "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents"
+      authors: "Debenedetti et al."
+      year: 2024
+      relevance: "Dynamic benchmark for tool-using agents over untrusted data; closest benchmark pattern but not focused on sandbox escape."
+      url: "https://arxiv.org/abs/2406.13352"
+    - id: "wasp2025"
+      title: "WASP: Benchmarking Web Agent Security Against Prompt Injection Attacks"
+      authors: "Evtimov et al."
+      year: 2025
+      relevance: "Realistic web-agent hijacking benchmark; motivates end-to-end attack success metrics under realistic adversary power."
+      url: "https://arxiv.org/abs/2504.18575"
+    - id: "agentharm2024"
+      title: "AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents"
+      authors: "Andriushchenko et al."
+      year: 2024
+      relevance: "Shows agent misuse requires multi-step capability retention, not only refusal bypass."
+      url: "https://arxiv.org/abs/2410.09024"
+    - id: "sweagent2024"
+      title: "Agent-Computer Interfaces Enable Automated Software Engineering"
+      authors: "Yang et al."
+      year: 2024
+      relevance: "Defines agent-computer interfaces for coding agents; this work studies the security consequences of those interfaces."
+      url: "https://arxiv.org/abs/2405.15793"
+    - id: "sandboxescapebench2026"
+      title: "Quantifying Frontier LLM Capabilities for Container Sandbox Escape"
+      authors: "Unverified from arXiv search result"
+      year: 2026
+      relevance: "Measures model capability against container/OCI escape tasks; adjacent but more OS/container-exploit-centric than agent-configuration-centric."
+      url: "https://arxiv.org/html/2603.02277v1"
+    - id: "codingassistantinjection2026"
+      title: "Prompt Injection Attacks on Agentic Coding Assistants"
+      authors: "Unverified from arXiv search result"
+      year: 2026
+      relevance: "Catalogs attack techniques against coding assistants; useful taxonomy for threat modeling."
+      url: "https://arxiv.org/html/2601.17548v1"
+  open_problems:
+    - "Existing agent security benchmarks focus on hijacking tool behavior, harmful requests, web navigation, or classical container escape; they do not isolate agent-level sandbox boundary confusion."
+    - "Security reports describe configuration-based sandbox escape in AI coding tools, but there is no reusable academic benchmark with controlled tasks, baselines, and ablations."
+    - "Current sandbox evaluations often ask whether an agent can break Docker; fewer ask whether the agent can unintentionally prepare host-context execution through benign-looking repo/config changes."
+  evidence_gaps:
+    - "Cross-agent reproducibility across CLI coding agents, cloud coding agents, and web/computer-use agents."
+    - "Attack success decomposition: instruction uptake, sandbox-boundary violation, host-context trigger, and observable impact."
+    - "Defensive evaluation that separates model refusal, tool approval UX, filesystem policy, startup policy, and configuration provenance."
+
+hypotheses:
+  - id: H1
+    statement: "A benchmark centered on semantic sandbox escape tasks will reveal a distinct vulnerability class: agents can create or modify artifacts that are inert inside the sandbox but become executable or privileged in a later host/context transition."
+    status: active
+    motivation: "Recent disclosures suggest many failures are not kernel escapes but trust-boundary failures around project-local configuration, startup behavior, and tool discovery."
+    parent: null
+    priority: high
+  - id: H2
+    statement: "Attack success will correlate more strongly with interface affordances and approval-policy wording than with raw model capability."
+    status: pending
+    motivation: "SWE-agent shows ACI design changes agent behavior; AgentDojo and WASP show task realism matters."
+    parent: null
+    priority: medium
+  - id: H3
+    statement: "A provenance-aware policy for executable/configuration artifacts will reduce semantic sandbox escape success without materially reducing benign coding task completion."
+    status: pending
+    motivation: "This is a possible defense ablation, but the paper should focus on the attack benchmark first."
+    parent: null
+    priority: low
+
+experiments:
+  proxy_metric: "Semantic Sandbox Escape Success Rate (SSE-SR), decomposed into instruction uptake, artifact placement, policy bypass, and host-context trigger in a toy reproducible harness."
+  baseline_value: 0.0
+  best_value: 1.0
+  total_runs: 1
+  trajectory:
+    - run_id: "run_001"
+      hypothesis: "H1"
+      metric_value: 0.6
+      baseline: 0.0
+      delta: "+0.60 vs benign control"
+      wall_time_min: 1
+      change_summary: "Implemented safe toy oracle over 10 seed tasks; indirect synthetic policy achieved 0.60 SSE-SR while benign control stayed at 0.00."
+      timestamp: "2026-06-13"
+
+outer_loop:
+  cycle: 1
+  last_direction: deepen
+  last_reflection: "Selected one main direction and completed run_001 metric plumbing for a safe semantic sandbox escape benchmark."
+
+workspace:
+  findings: "findings.md"
+  log: "research-log.md"
+  literature_dir: "literature/"
+  experiments_dir: "experiments/"
+  to_human_dir: "to_human/"
+  paper_dir: "paper/"
+  heartbeat_automation_id: "autoresearch-loop-2"

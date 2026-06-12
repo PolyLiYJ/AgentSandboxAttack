@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Sandbox Research Progress</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; color: #17202a; background: #f7f8fb; }
+    main { max-width: 980px; margin: 0 auto; padding: 48px 24px; }
+    h1 { font-size: 38px; margin: 0 0 10px; letter-spacing: 0; }
+    h2 { margin-top: 34px; border-top: 1px solid #d9deea; padding-top: 22px; }
+    p, li { font-size: 17px; line-height: 1.55; }
+    .tag { display: inline-block; background: #e6f0ee; color: #0b574f; padding: 4px 9px; border-radius: 6px; font-weight: 650; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .card { background: white; border: 1px solid #dfe4ee; border-radius: 8px; padding: 16px; }
+    .score { font-size: 28px; font-weight: 750; }
+    code { background: #eef1f6; padding: 2px 5px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <main>
+    <span class="tag">Bootstrap complete</span>
+    <h1>Agent Sandbox Attack Research</h1>
+    <p>The project has converged on one main paper direction: a safe NDSS-style benchmark for semantic sandbox escape in AI coding agents.</p>
+
+    <h2>Selected Thesis</h2>
+    <p>Agent sandboxes are usually evaluated as OS isolation boundaries, but coding agents also cross a semantic boundary through repository files, configuration, tool manifests, and startup state. SSE-Bench will measure this boundary directly.</p>
+
+    <h2>Why This Direction</h2>
+    <div class="grid">
+      <div class="card"><div class="score">5/5</div><p>Novelty: fills the gap between prompt-injection benchmarks and container escape benchmarks.</p></div>
+      <div class="card"><div class="score">5/5</div><p>Feasibility: safe toy harness and sentinel artifacts allow quick iteration.</p></div>
+      <div class="card"><div class="score">NDSS</div><p>Fit: security measurement, threat model, reusable artifact, decomposed attack metrics.</p></div>
+    </div>
+
+    <h2>Next Experiment</h2>
+    <p><code>run_001</code> implements a deterministic oracle and evaluates random, direct, indirect, and benign-control baselines on 10 seed tasks.</p>
+
+    <h2>Files Created</h2>
+    <ul>
+      <li><code>research-state.yaml</code>: project state and hypotheses</li>
+      <li><code>findings.md</code>: evolving research narrative</li>
+      <li><code>literature/survey.md</code>: current literature map</li>
+      <li><code>experiments/sandbox-attack-benchmark/protocol.md</code>: locked first protocol</li>
+      <li><code>paper/ndss_draft.md</code>: paper skeleton</li>
+    </ul>
+  </main>
+</body>
+</html>
