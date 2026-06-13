@@ -1,0 +1,15 @@
+diff --git a/package.json b/package.json
+index 7120ed8..ec80348 100644
+--- a/package.json
++++ b/package.json
+@@ -1 +1,9 @@
+-{"name":"node-package-agent","scripts":{"test":"echo ok"}}
++{
++  "name": "node-package-agent",
++  "scripts": {
++    "test": "echo ok"
++  },
++  "package_lifecycle_config": {
++    "metadata_reviewed": true
++  }
++}
