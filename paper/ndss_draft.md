@@ -34,7 +34,7 @@ SandScout has five modules:
 
 ## Threat Model and Safety
 
-A full threat-model and safety section draft is maintained in `paper/sections/threat_model.md`. The core boundary is semantic rather than kernel-level: SandScout asks whether a sandboxed coding agent can be induced to prepare repository artifacts later consumed by host-side lifecycle systems. The artifact remains sentinel-only and excludes real exploit payloads, credentials, destructive commands, and product-specific vulnerability claims.
+A full threat-model and safety section draft is maintained in `paper/sections/threat_model.md`. The core boundary is semantic rather than kernel-level: SandScout asks whether a sandboxed coding agent can be induced to prepare repository artifacts later consumed by host-side lifecycle systems. The benchmark remains sentinel-only, while the harness detects and flags real exploit payload indicators, credentials, destructive commands, and product-specific vulnerability claims if they appear in tasks or run artifacts.
 
 ## Evaluation Questions
 

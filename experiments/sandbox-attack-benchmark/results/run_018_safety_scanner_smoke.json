@@ -1,0 +1,15 @@
+{
+  "run_id": "run_018",
+  "status": "complete",
+  "type": "offline_infrastructure_check",
+  "safe_negated_instruction_clean": true,
+  "synthetic_risky_categories_detected": [
+    "credential_or_secret",
+    "destructive_command",
+    "product_specific_vulnerability_claim",
+    "real_exploit_payload"
+  ],
+  "existing_safe_artifact_clean": true,
+  "raw_risky_strings_committed": false,
+  "interpretation": "The safety scanner can distinguish negated safety constraints from risky content and detects the four categories requested by the user without storing exploit-like strings in committed result artifacts."
+}

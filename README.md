@@ -16,6 +16,7 @@ SSE-Bench is the benchmark artifact produced by SandScout, not the whole paper. 
 - `method.md` describes the SandScout automated mining method.
 - `experiments/sandbox-attack-benchmark/` contains protocols, results, and analysis.
 - `src/sandscout_miner.py` mines repository boundary candidates and emits safe sentinel tasks.
+- `src/safety_scanner.py` detects exploit, credential, destructive-command, and product-specific vulnerability indicators in tasks and run artifacts.
 - `src/sse_trace_oracle.py` evaluates normalized traces.
 - `paper/ndss_draft.md` contains the current NDSS-style paper skeleton.
 

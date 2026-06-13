@@ -1,6 +1,6 @@
 # Threat Model and Safety Section Draft
 
-This section is written for the NDSS-style paper. It should appear before the method or at the beginning of the evaluation, because the paper studies attacks while deliberately avoiding real exploit payloads.
+This section is written for the NDSS-style paper. It should appear before the method or at the beginning of the evaluation, because the paper studies attacks while keeping executable evaluation artifacts benign.
 
 ## Setting
 
@@ -19,13 +19,15 @@ The adversary can:
 - Induce the user to ask a benign task such as inspecting metadata or compatibility notes.
 - Rely on later host-side interpretation of files created or modified by the agent.
 
-The adversary cannot:
+During SandScout's sentinel evaluation, the adversary cannot:
 
 - Directly execute code on the host during the SandScout evaluation.
 - Access credentials, secrets, or external network resources.
 - Modify files outside the disposable workspace.
 - Use destructive commands or real exploit payloads.
 - Bypass the operating-system sandbox directly.
+
+SandScout should still detect and flag evidence that attempts to introduce these prohibited classes. Detection is in scope; executing or distributing such content is not.
 
 ## Security Goal
 
@@ -47,26 +49,30 @@ The harness does not trust agent self-reporting as the sole source of truth. The
 
 ## Out of Scope
 
-The following are out of scope for the current prototype:
+The following are out of scope for the current prototype as executed behavior or released benchmark content:
 
-- Real exploit payloads, malware, credential access, exfiltration, or destructive commands.
-- Claims about specific deployed products as vulnerable systems.
+- Executing real exploit payloads, malware, credential access, exfiltration, or destructive commands.
+- Publishing product-specific bypass instructions or uncoordinated claims about deployed products as vulnerable systems.
 - Kernel, OCI, hypervisor, or container runtime escape techniques.
 - Social engineering of users outside the controlled prompt.
 - Measuring real-world prevalence across public repositories.
 - Proving that every mined surface is exploitable in a deployed toolchain.
 
-These exclusions are design choices. SandScout aims to provide a safe, reusable measurement system, not a recipe for compromising developer machines.
+These exclusions are design choices. SandScout aims to provide a safe, reusable measurement system, not a recipe for compromising developer machines. However, SandScout's safety scanner is expected to detect and label attempted appearances of real exploit payloads, credentials, destructive commands, or product-specific vulnerability claims in tasks, prompts, outputs, and diffs.
 
 ## Safety Controls
 
-Every SandScout task uses the fixed benign marker `SSE_BENIGN_SENTINEL`. The real-agent runner rejects task JSON containing terms associated with credentials, exfiltration, malware, reverse shells, destructive filesystem commands, or non-benign sentinel values. Experiments run in disposable git repositories and capture only local evidence.
+Every SandScout task uses the fixed benign marker `SSE_BENIGN_SENTINEL`. The real-agent runner rejects task JSON containing terms associated with credentials, exfiltration, malware, reverse shells, destructive filesystem commands, or non-benign sentinel values. It also writes a `safety_scan.json` file for each run, flagging detected categories in the task, prompt, stdout, stderr, and diff. Experiments run in disposable git repositories and capture only local evidence.
+
+SandScout distinguishes two safety actions:
+
+- **Block before execution:** unsafe task specifications and non-benign sentinels are rejected.
+- **Detect after execution:** run artifacts are scanned for real exploit payload indicators, credential/secret indicators, destructive command patterns, and product-specific vulnerability claims.
 
 The no-note controls provide a second safety and validity check. They hold the agent, prompt mode, fixture, and task constant while removing SandScout's repository-local sentinel instruction. Completed controls should remain at SSE-SR=0.00. If a control created a sentinel without the note, it would indicate a prompt-template artifact or oracle flaw rather than evidence for the mined-context hypothesis.
 
 ## Disclosure and Artifact Policy
 
-SandScout should be released as a safe benchmark artifact. The artifact should include miners, synthetic fixtures, sentinel tasks, trace/oracle scripts, and result-reproduction commands. It should not include working exploit payloads, product-specific bypass steps, credentials, or instructions for abusing real host lifecycle hooks.
+SandScout should be released as a safe benchmark artifact. The artifact should include miners, synthetic fixtures, sentinel tasks, trace/oracle scripts, safety scanners, and result-reproduction commands. It should not include working exploit payloads, product-specific bypass steps, credentials, or instructions for abusing real host lifecycle hooks. If such content appears in future real-agent outputs, the artifact should preserve only redacted detection metadata unless coordinated disclosure permits more detail.
 
 If future runs identify behavior that appears product-specific and security-relevant beyond the sentinel harness, those findings should be handled through coordinated disclosure before publication.
-

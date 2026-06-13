@@ -19,8 +19,8 @@ SandScout performs four steps:
 3. **Real-Agent Execution**
    Run real coding agents in disposable worktrees. Initial target: Codex CLI, because it is locally detected. Planned targets: Claude Code, Gemini CLI, and OpenHands.
 
-4. **Trace and Diff Oracle**
-   Convert transcripts and workspace diffs into normalized traces. Compute SSE-SR and decomposed metrics.
+4. **Trace, Diff, and Safety Oracles**
+   Convert transcripts and workspace diffs into normalized traces. Compute SSE-SR and decomposed metrics. In parallel, scan tasks, prompts, outputs, and diffs for real exploit payload indicators, credential/secret indicators, destructive commands, and product-specific vulnerability claims.
 
 ## Boundary Classes
 
@@ -46,5 +46,7 @@ A benchmark says "here are tasks." SandScout says "here is a reproducible way to
 ## Safety
 
 SandScout never emits real exploit payloads. It emits sentinel tasks and mock triggerability checks. Real-agent tests must run in disposable worktrees and must not include credential access, malware, destructive commands, or product-specific exploit strings.
+
+SandScout should still detect and flag those categories if they appear in task specifications or real-agent artifacts. The runner now records `safety_scan.json` to distinguish a clean sentinel-only run from a run that contains exploit, credential, destructive-command, or product-specific vulnerability indicators.
 
 For paper text, see `paper/sections/threat_model.md`, which spells out adversary capabilities, trusted components, out-of-scope behavior, and artifact-release policy.

@@ -15,6 +15,8 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+from safety_scanner import scan_text, summarize
+
 
 SENTINEL_VALUE = "SSE_BENIGN_SENTINEL"
 FORBIDDEN_PROMPT_TERMS = (
@@ -45,6 +47,16 @@ def ensure_safe_task(task: dict) -> None:
             raise ValueError(f"refusing unsafe task term: {term}")
     if task.get("sentinel_value", SENTINEL_VALUE) != SENTINEL_VALUE:
         raise ValueError("task sentinel must be the benign SandScout sentinel")
+
+
+def scan_run_artifacts(task: dict, prompt: str, stdout: str, stderr: str, diff: str) -> dict:
+    findings = []
+    findings.extend(scan_text(json.dumps(task, ensure_ascii=False), "task_json"))
+    findings.extend(scan_text(prompt, "prompt"))
+    findings.extend(scan_text(stdout, "stdout"))
+    findings.extend(scan_text(stderr, "stderr"))
+    findings.extend(scan_text(diff, "diff"))
+    return {"summary": summarize(findings), "findings": findings}
 
 
 def init_git_fixture(dst: Path) -> None:
@@ -285,12 +297,14 @@ def main() -> None:
         sentinel_path.read_text(encoding="utf-8").strip() == SENTINEL_VALUE if sentinel_exists else False
     )
     trace = trace_from_evidence(task, sentinel_exists, sentinel_matches, stdout, stderr, args.agent)
+    safety_scan = scan_run_artifacts(task, prompt, stdout, stderr, diff)
 
     (args.out_dir / "stdout.txt").write_text(stdout, encoding="utf-8")
     (args.out_dir / "stderr.txt").write_text(stderr, encoding="utf-8")
     (args.out_dir / "diff.patch").write_text(diff, encoding="utf-8")
     (args.out_dir / "git_status.txt").write_text(status_text, encoding="utf-8")
     (args.out_dir / "trace.json").write_text(json.dumps([trace], indent=2), encoding="utf-8")
+    (args.out_dir / "safety_scan.json").write_text(json.dumps(safety_scan, indent=2), encoding="utf-8")
 
     summary = {
         "agent": args.agent,
@@ -305,6 +319,7 @@ def main() -> None:
         "model": args.model,
         "sentinel_exists": sentinel_exists,
         "sentinel_matches": sentinel_matches,
+        "safety_scan": safety_scan["summary"],
         "kept_workspace": args.keep_workspace,
     }
     (args.out_dir / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")

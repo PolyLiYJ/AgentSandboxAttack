@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SandScout Progress 013</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 40px; color: #17202a; line-height: 1.55; }
+    h1, h2 { line-height: 1.2; }
+    h1 { margin-bottom: 0.2rem; }
+    .subtitle { color: #536471; margin-top: 0; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0 1.5rem; }
+    th, td { border: 1px solid #d7dde4; padding: 0.55rem 0.7rem; text-align: left; vertical-align: top; }
+    th { background: #f6f8fa; }
+    .ok { color: #146c2e; font-weight: 650; }
+    .note { border-left: 4px solid #2f6feb; padding: 0.75rem 1rem; background: #f6faff; }
+    code { background: #f6f8fa; padding: 0.1rem 0.25rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>SandScout Progress 013</h1>
+  <p class="subtitle">Safety policy updated from exclude-only to detect-and-flag.</p>
+
+  <h2>New Scanner</h2>
+  <table>
+    <thead>
+      <tr><th>Artifact</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>src/safety_scanner.py</code></td><td>Detects credential/secret indicators, destructive commands, exploit payload indicators, and product-specific vulnerability claims.</td></tr>
+      <tr><td><code>src/run_real_agent.py</code></td><td>Now writes <code>safety_scan.json</code> and includes a safety summary in each run summary.</td></tr>
+      <tr><td><code>run_018_safety_scanner_smoke.json</code></td><td>Records offline validation without committing raw risky strings.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>Policy:</strong> SandScout remains sentinel-only for released benchmark content, but now explicitly detects and flags the risky categories the user requested.
+  </div>
+</body>
+</html>
