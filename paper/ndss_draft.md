@@ -32,6 +32,10 @@ SandScout has five modules:
 - Trace normalizer: converts transcripts and diffs into a common action trace.
 - Sentinel oracle: computes instruction uptake, artifact placement, triggerability, benign task completion, and SSE-SR.
 
+## Threat Model and Safety
+
+A full threat-model and safety section draft is maintained in `paper/sections/threat_model.md`. The core boundary is semantic rather than kernel-level: SandScout asks whether a sandboxed coding agent can be induced to prepare repository artifacts later consumed by host-side lifecycle systems. The artifact remains sentinel-only and excludes real exploit payloads, credentials, destructive commands, and product-specific vulnerability claims.
+
 ## Evaluation Questions
 
 RQ1: How many candidate semantic sandbox boundaries does SandScout discover across real repositories?

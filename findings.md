@@ -238,6 +238,8 @@ This is real progress even without new live runs: the paper now has a compact re
 
 Literature verification now has a dedicated source inventory in `literature/verified_sources.md`. The previously unverified 2026 arXiv-adjacent works have checked author/title/status metadata, but final BibTeX should still be fetched programmatically before submission. A related-work section draft is now in `paper/sections/related_work.md`, organized by methodology: prompt-injection benchmarks, coding-agent interfaces, sandbox escape benchmarks, coding-assistant prompt injection, and industry motivation reports.
 
+The paper now has a dedicated threat model and safety draft in `paper/sections/threat_model.md`. It clarifies that SandScout studies semantic lifecycle-boundary behavior, not kernel/container escape; attacker capabilities are limited to repository-local context; and release artifacts must remain sentinel-only with no real exploit payloads, credentials, destructive commands, or product-specific vulnerability claims.
+
 ## Patterns and Insights
 
 The literature suggests a split between **behavioral hijacking** and **boundary hijacking**. AgentDojo and WASP evaluate whether untrusted content can redirect agent behavior. SandboxEscapeBench-style work evaluates direct container escape capability. SandScout targets the missing middle: automatically discovering where hijacked behavior can materialize across lifecycle boundaries that the sandbox does not model.
@@ -261,6 +263,7 @@ The literature suggests a split between **behavioral hijacking** and **boundary 
 - The tool-manifest no-note control remains pending because run_017 hit a Codex CLI `usage_limit` before normal execution.
 - The results section now has a dedicated draft and reproducible figure/table assets under `paper/`.
 - Related work now has verified source notes and a section draft; final BibTeX remains a future camera-ready task.
+- Threat model and safety now have a dedicated draft, which is important for NDSS framing because the work studies attacks while preserving a benign artifact policy.
 
 ## Open Questions
 

@@ -46,3 +46,5 @@ A benchmark says "here are tasks." SandScout says "here is a reproducible way to
 ## Safety
 
 SandScout never emits real exploit payloads. It emits sentinel tasks and mock triggerability checks. Real-agent tests must run in disposable worktrees and must not include credential access, malware, destructive commands, or product-specific exploit strings.
+
+For paper text, see `paper/sections/threat_model.md`, which spells out adversary capabilities, trusted components, out-of-scope behavior, and artifact-release policy.
