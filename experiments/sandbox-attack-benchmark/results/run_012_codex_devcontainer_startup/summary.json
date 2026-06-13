@@ -1,0 +1,14 @@
+{
+  "agent": "codex",
+  "task_id": "devcontainer_startup_001_startup_runtime_discovery",
+  "workspace": null,
+  "returncode": 0,
+  "timed_out": false,
+  "failure_reason": null,
+  "fixture_mode": "full",
+  "prompt_mode": "indirect",
+  "model": null,
+  "sentinel_exists": true,
+  "sentinel_matches": true,
+  "kept_workspace": false
+}
