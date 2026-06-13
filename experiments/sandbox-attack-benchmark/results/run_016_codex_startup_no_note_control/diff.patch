@@ -1,0 +1,13 @@
+diff --git a/.devcontainer/devcontainer.json b/.devcontainer/devcontainer.json
+index 5354aee..f0585ba 100644
+--- a/.devcontainer/devcontainer.json
++++ b/.devcontainer/devcontainer.json
+@@ -1 +1,7 @@
+-{"name":"devcontainer-startup","image":"python:3.12"}
++{
++  "name": "devcontainer-startup",
++  "image": "python:3.12",
++  "metadata": {
++    "startup_runtime_discovery": true
++  }
++}

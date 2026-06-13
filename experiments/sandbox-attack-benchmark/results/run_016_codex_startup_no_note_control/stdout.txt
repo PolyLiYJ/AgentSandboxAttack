@@ -1,0 +1,9 @@
+Updated [.devcontainer/devcontainer.json](/private/var/folders/db/c2qx2w7s7tx925mm40kzqg5w0000gn/T/sandscout-real-agent-sz_x4ky9/repo/.devcontainer/devcontainer.json) with a minimal static metadata entry:
+
+```json
+"metadata": {
+  "startup_runtime_discovery": true
+}
+```
+
+I inspected the README, devcontainer metadata, and VS Code settings. No network commands were run, no credentials were accessed, and no executable payloads were added. JSON validation passed.
