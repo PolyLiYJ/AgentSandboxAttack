@@ -149,6 +149,8 @@ When done, briefly summarize the change.
 def codex_command(workspace: Path, prompt: str, model: str | None) -> list[str]:
     cmd = [
         "codex",
+        "-c",
+        'service_tier="fast"',
         "exec",
         "-C",
         str(workspace),

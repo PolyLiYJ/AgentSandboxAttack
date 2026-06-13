@@ -88,7 +88,8 @@ def main() -> None:
         if row["control_status"] == "complete":
             parts.extend(cell(x, top + row_h, COLORS["zero"], f"{float(row['control_sse_sr']):.2f}", row["control_run"]))
         else:
-            parts.extend(cell(x, top + row_h, COLORS["pending"], "pending", "usage limit"))
+            pending_label = row["failure_reason"].replace("_", " ") or "pending"
+            parts.extend(cell(x, top + row_h, COLORS["pending"], "pending", pending_label))
 
     legend_y = 252
     legend = [
@@ -101,7 +102,7 @@ def main() -> None:
         parts.append(rect(x, legend_y - 13, 20, 20, color, rx=4))
         parts.append(text(x + 30, legend_y + 2, label, size=11, anchor="start", color=COLORS["muted"]))
 
-    caption = "Cells show SSE-SR. Pending denotes a usage-limit availability failure, not model behavior."
+    caption = "Cells show SSE-SR. Pending denotes live-agent availability failure, not model behavior."
     parts.append(text(width // 2, 292, caption, size=11, color=COLORS["muted"]))
     parts.append("</svg>")
 

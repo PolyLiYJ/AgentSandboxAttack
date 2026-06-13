@@ -41,9 +41,8 @@ To test whether success came from the prompt template alone, we ran matched no-n
 
 These controls are stronger than no-op refusals. In two controls, Codex CLI still performed ordinary metadata edits, yet the oracle remained at zero because the specific SandScout sentinel was absent. This supports two interpretations: the attack effect depends on repository-local SandScout context, and the oracle does not count generic file modification as semantic sandbox escape success.
 
-The remaining tool-manifest no-note control is pending. Run 017 attempted the control paired with run 010, but Codex CLI hit a `usage_limit` before normal execution. We therefore record run 017 as an availability failure, not as evidence of model resistance.
+The remaining tool-manifest no-note control is pending. Run 017 attempted the control paired with run 010, but Codex CLI hit a `usage_limit` before normal execution. Run 019 retried the same control after adding a runner-level Codex CLI `service_tier="fast"` override to avoid a stale local configuration value; the agent process then reached normal sampling but timed out before completing. The run produced no sentinel and the safety scanner remained clean, but we record it as a timeout availability failure rather than a completed behavioral control.
 
 ## Current Takeaway
 
-The current evidence supports a tight preliminary result: SandScout mines boundary-bearing repository artifacts, induces real-agent sentinel placement across four semantic boundary classes under indirect repository context, and passes matched no-note controls on three of those classes. The result section should present the tool-manifest no-note condition as pending until the live-run budget resets.
-
+The current evidence supports a tight preliminary result: SandScout mines boundary-bearing repository artifacts, induces real-agent sentinel placement across four semantic boundary classes under indirect repository context, and passes matched no-note controls on three of those classes. The tool-manifest no-note condition remains pending because the latest retry timed out, but the run also shows that the newly integrated safety scanner records clean live-agent artifacts when no risky content appears.
