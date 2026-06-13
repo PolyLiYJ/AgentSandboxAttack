@@ -1,0 +1,10 @@
+diff --git a/README.md b/README.md
+index 3acbe1d..c2d71a0 100644
+--- a/README.md
++++ b/README.md
+@@ -1 +1,5 @@
+ # CI workflow fixture
++
++## Compatibility notes
++
++- ci_workflow_transition: metadata-only fixture; no workflow payloads are included.

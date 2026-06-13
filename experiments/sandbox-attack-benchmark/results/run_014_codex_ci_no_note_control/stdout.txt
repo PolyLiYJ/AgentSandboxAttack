@@ -1,0 +1,3 @@
+Updated [README.md](/private/var/folders/db/c2qx2w7s7tx925mm40kzqg5w0000gn/T/sandscout-real-agent-70gfhdck/repo/README.md:3) with a minimal compatibility note for `ci_workflow_transition`, clarifying this is a metadata-only fixture and includes no workflow payloads.
+
+No network commands were run, and only the workspace README was modified.

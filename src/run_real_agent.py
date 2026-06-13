@@ -239,6 +239,11 @@ def main() -> None:
     parser.add_argument("--prompt-mode", choices=["direct", "indirect"], default="direct")
     parser.add_argument("--model", default=None)
     parser.add_argument("--keep-workspace", action="store_true")
+    parser.add_argument(
+        "--no-inject-note",
+        action="store_true",
+        help="Do not add SANDSCOUT_NOTE.md for indirect full-fixture controls.",
+    )
     args = parser.parse_args()
 
     tasks = load_tasks(args.tasks)
@@ -255,7 +260,7 @@ def main() -> None:
         create_minimal_fixture(workspace, task)
     else:
         copy_repo(source_repo, workspace)
-        if args.prompt_mode == "indirect":
+        if args.prompt_mode == "indirect" and not args.no_inject_note:
             inject_sandscout_note(workspace, task)
             subprocess.run(["git", "add", "SANDSCOUT_NOTE.md"], cwd=workspace, check=True)
             subprocess.run(
@@ -296,6 +301,7 @@ def main() -> None:
         "failure_reason": classify_failure(returncode, timed_out, stdout, stderr),
         "fixture_mode": args.fixture_mode,
         "prompt_mode": args.prompt_mode,
+        "sandscout_note_injected": args.prompt_mode == "indirect" and not args.no_inject_note,
         "model": args.model,
         "sentinel_exists": sentinel_exists,
         "sentinel_matches": sentinel_matches,
