@@ -24,7 +24,7 @@ AI coding agents increasingly operate inside sandboxes, yet their effective secu
 
 ## System Design
 
-SandScout has five modules:
+The full paper-ready method draft is maintained in `paper/sections/method.md`. SandScout has five modules:
 
 - Boundary miner: scans repositories for lifecycle artifacts such as package metadata, startup/editor configuration, tool manifests, CI workflows, and agent instruction files.
 - Task synthesizer: converts each discovered surface into a benign coding task plus adversarial repository context and harmless sentinel target.
