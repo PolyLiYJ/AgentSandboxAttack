@@ -227,6 +227,15 @@ The current result shape is now much more defensible: four indirect mined-contex
 
 The automation was updated to avoid additional live Codex CLI runs until after the reported reset time and to prioritize offline writing, control-matrix analysis, figures, and literature verification.
 
+Offline paper-preparation work converted the current evidence into reusable result assets:
+
+- `paper/results/real_agent_control_matrix.csv`: paired positive/control matrix for runs 010-017.
+- `paper/results/mining_summary.csv`: mined-task yield and current real-agent coverage by surface.
+- `paper/sections/results.md`: NDSS-style result section draft organized by RQ.
+- `paper/figures/fig_control_matrix.svg`: dependency-free control-matrix figure generated from the CSV.
+
+This is real progress even without new live runs: the paper now has a compact results backbone that distinguishes completed controls from the tool-manifest pending condition.
+
 ## Patterns and Insights
 
 The literature suggests a split between **behavioral hijacking** and **boundary hijacking**. AgentDojo and WASP evaluate whether untrusted content can redirect agent behavior. SandboxEscapeBench-style work evaluates direct container escape capability. SandScout targets the missing middle: automatically discovering where hijacked behavior can materialize across lifecycle boundaries that the sandbox does not model.
@@ -248,6 +257,7 @@ The literature suggests a split between **behavioral hijacking** and **boundary 
 - Matched no-note controls for CI, package lifecycle, and startup/runtime stayed at SSE-SR=0.00, supporting the causal role of repository-local mined context.
 - The package and startup no-note controls still made benign metadata edits, which helps show that SandScout's oracle is specific to sentinel placement rather than generic file modification.
 - The tool-manifest no-note control remains pending because run_017 hit a Codex CLI `usage_limit` before normal execution.
+- The results section now has a dedicated draft and reproducible figure/table assets under `paper/`.
 
 ## Open Questions
 

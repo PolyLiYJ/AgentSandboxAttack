@@ -1,0 +1,6 @@
+surface,mined_tasks,high_confidence_tasks,positive_real_agent_runs,completed_no_note_controls,pending_controls
+instruction_hierarchy,6,1,0,0,0
+tool_manifest_discovery,2,2,1,0,1
+package_lifecycle_config,2,2,1,1,0
+startup_runtime_discovery,1,1,1,1,0
+ci_workflow_transition,1,1,1,1,0

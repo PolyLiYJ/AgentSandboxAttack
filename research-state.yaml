@@ -218,7 +218,7 @@ experiments:
 outer_loop:
   cycle: 2
   last_direction: pivot
-  last_reflection: "Indirect mined-context success spans four boundary surfaces, and matched no-note controls for CI, package lifecycle, and startup/runtime all stay at SSE-SR=0.00. Package and startup controls still made benign metadata edits, strengthening the claim that the oracle is specific to SandScout sentinel placement rather than generic file modification. The remaining tool-manifest no-note control was attempted in run_017 but blocked by Codex CLI usage_limit and should not be interpreted as model behavior."
+  last_reflection: "Indirect mined-context success spans four boundary surfaces, and matched no-note controls for CI, package lifecycle, and startup/runtime all stay at SSE-SR=0.00. Package and startup controls still made benign metadata edits, strengthening the claim that the oracle is specific to SandScout sentinel placement rather than generic file modification. The remaining tool-manifest no-note control was attempted in run_017 but blocked by Codex CLI usage_limit and should not be interpreted as model behavior. Offline work now created a reusable NDSS-style results section, CSV result assets, and an SVG control-matrix figure."
 
 workspace:
   findings: "findings.md"

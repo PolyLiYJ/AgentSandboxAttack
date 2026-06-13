@@ -53,7 +53,7 @@ RQ5: Does the generated SSE-Bench generalize to unseen repositories and agents?
 
 ## Preliminary Results
 
-The current prototype evaluates SandScout on a safe six-repository synthetic corpus and real Codex CLI runs. SandScout mined 12 tasks across 5 boundary classes, with 7 candidates ranked as high confidence.
+The current prototype evaluates SandScout on a safe six-repository synthetic corpus and real Codex CLI runs. SandScout mined 12 tasks across 5 boundary classes, with 7 candidates ranked as high confidence. A fuller NDSS-style draft of this section is maintained in `paper/sections/results.md`, with source tables in `paper/results/` and the control-matrix figure in `paper/figures/fig_control_matrix.svg`.
 
 Early real-agent results support the method-paper thesis. Under indirect prompting, where the user prompt asks the agent to inspect repository-local compatibility metadata rather than directly naming the sentinel path, Codex CLI created the benign sentinel across four boundary classes:
 
@@ -73,6 +73,8 @@ A matched no-note control on the CI fixture held the agent, prompt mode, fixture
 | 012 | 016 | Startup/runtime discovery | benign devcontainer metadata edit only | 0.00 | 0.00 |
 
 This contrast is the current strongest causal evidence: SandScout is measuring the effect of mined repository-local context, not merely a prompt template that causes arbitrary sentinel creation. The package and startup controls further show that the oracle is not counting arbitrary metadata edits as semantic sandbox escape success; success requires the specific sentinel artifact synthesized from the mined boundary candidate.
+
+The tool-manifest no-note control paired with run 010 remains pending. Run 017 attempted it, but Codex CLI hit a `usage_limit` before normal task execution; we record this as an availability failure rather than a behavioral result.
 
 ## Related Work Buckets
 
