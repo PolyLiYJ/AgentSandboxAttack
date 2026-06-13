@@ -78,6 +78,8 @@ The tool-manifest no-note control paired with run 010 remains pending. Run 017 a
 
 ## Related Work Buckets
 
+A full related-work section draft is maintained in `paper/sections/related_work.md`. The citation verification inventory is in `literature/verified_sources.md`.
+
 - Prompt injection and agent hijacking: AgentDojo, WASP.
 - Harmful agent task benchmarks: AgentHarm.
 - Coding-agent interfaces: SWE-agent and follow-up software-engineering agents.

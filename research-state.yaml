@@ -33,13 +33,13 @@ literature:
       url: "https://arxiv.org/abs/2405.15793"
     - id: "sandboxescapebench2026"
       title: "Quantifying Frontier LLM Capabilities for Container Sandbox Escape"
-      authors: "Unverified from arXiv search result"
+      authors: "Rahul Marchand, Art O Cathain, Jerome Wynne, Philippos Maximos Giavridis, Sam Deverett, John Wilkinson, Jason Gwartz, Harry Coppock"
       year: 2026
       relevance: "Measures model capability against container/OCI escape tasks; adjacent but more OS/container-exploit-centric than agent-configuration-centric."
       url: "https://arxiv.org/html/2603.02277v1"
     - id: "codingassistantinjection2026"
       title: "Prompt Injection Attacks on Agentic Coding Assistants"
-      authors: "Unverified from arXiv search result"
+      authors: "Narek Maloyan, Dmitry Namiot"
       year: 2026
       relevance: "Catalogs attack techniques against coding assistants; useful taxonomy for threat modeling."
       url: "https://arxiv.org/html/2601.17548v1"
@@ -218,7 +218,7 @@ experiments:
 outer_loop:
   cycle: 2
   last_direction: pivot
-  last_reflection: "Indirect mined-context success spans four boundary surfaces, and matched no-note controls for CI, package lifecycle, and startup/runtime all stay at SSE-SR=0.00. Package and startup controls still made benign metadata edits, strengthening the claim that the oracle is specific to SandScout sentinel placement rather than generic file modification. The remaining tool-manifest no-note control was attempted in run_017 but blocked by Codex CLI usage_limit and should not be interpreted as model behavior. Offline work now created a reusable NDSS-style results section, CSV result assets, and an SVG control-matrix figure."
+  last_reflection: "Indirect mined-context success spans four boundary surfaces, and matched no-note controls for CI, package lifecycle, and startup/runtime all stay at SSE-SR=0.00. Package and startup controls still made benign metadata edits, strengthening the claim that the oracle is specific to SandScout sentinel placement rather than generic file modification. The remaining tool-manifest no-note control was attempted in run_017 but blocked by Codex CLI usage_limit and should not be interpreted as model behavior. Offline work now created a reusable NDSS-style results section, CSV result assets, an SVG control-matrix figure, verified source notes, and a related-work section draft."
 
 workspace:
   findings: "findings.md"

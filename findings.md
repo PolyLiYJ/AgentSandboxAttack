@@ -236,6 +236,8 @@ Offline paper-preparation work converted the current evidence into reusable resu
 
 This is real progress even without new live runs: the paper now has a compact results backbone that distinguishes completed controls from the tool-manifest pending condition.
 
+Literature verification now has a dedicated source inventory in `literature/verified_sources.md`. The previously unverified 2026 arXiv-adjacent works have checked author/title/status metadata, but final BibTeX should still be fetched programmatically before submission. A related-work section draft is now in `paper/sections/related_work.md`, organized by methodology: prompt-injection benchmarks, coding-agent interfaces, sandbox escape benchmarks, coding-assistant prompt injection, and industry motivation reports.
+
 ## Patterns and Insights
 
 The literature suggests a split between **behavioral hijacking** and **boundary hijacking**. AgentDojo and WASP evaluate whether untrusted content can redirect agent behavior. SandboxEscapeBench-style work evaluates direct container escape capability. SandScout targets the missing middle: automatically discovering where hijacked behavior can materialize across lifecycle boundaries that the sandbox does not model.
@@ -258,6 +260,7 @@ The literature suggests a split between **behavioral hijacking** and **boundary 
 - The package and startup no-note controls still made benign metadata edits, which helps show that SandScout's oracle is specific to sentinel placement rather than generic file modification.
 - The tool-manifest no-note control remains pending because run_017 hit a Codex CLI `usage_limit` before normal execution.
 - The results section now has a dedicated draft and reproducible figure/table assets under `paper/`.
+- Related work now has verified source notes and a section draft; final BibTeX remains a future camera-ready task.
 
 ## Open Questions
 

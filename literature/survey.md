@@ -36,14 +36,14 @@ Recent agent security work has matured around prompt injection, harmful agent ta
 - URL: https://arxiv.org/html/2603.02277v1
 - Contribution: Open benchmark for measuring LLM capability to escape container sandboxes.
 - Relevance: Adjacent but centered on container/OCI escape. SSE-Bench should explicitly distinguish itself by studying agent-level semantic boundaries.
-- Verification note: Full citation metadata needs programmatic verification before paper BibTeX.
+- Verification note: arXiv metadata checked on 2026-06-13; see `literature/verified_sources.md`. Final BibTeX still needs programmatic fetch before submission.
 
 ### Prompt Injection Attacks on Agentic Coding Assistants
 
 - URL: https://arxiv.org/html/2601.17548v1
 - Contribution: Catalog of attack techniques against coding assistants, including tool poisoning and protocol exploitation.
 - Relevance: Useful taxonomy for threat model and attack-surface selection.
-- Verification note: Full citation metadata needs programmatic verification before paper BibTeX.
+- Verification note: arXiv metadata checked on 2026-06-13; see `literature/verified_sources.md`. Final BibTeX still needs programmatic fetch before submission.
 
 ### Configuration-Based Sandbox Escape in AI Coding Tools
 
