@@ -1,0 +1,21 @@
+\section{Evaluation}
+
+Our current evaluation asks three research questions:
+
+\textbf{RQ1.} Can SandScout mine semantic boundary candidates from repositories?
+
+\textbf{RQ2.} Do mined indirect-context tasks transfer across boundary classes in a real coding agent?
+
+\textbf{RQ3.} Are successes caused by repository context rather than the prompt template alone?
+
+\subsection{Corpus and Tasks}
+
+The current prototype uses a safe six-repository synthetic fixture corpus. The corpus is designed to contain representative lifecycle artifacts without including real exploit payloads, credentials, destructive commands, or product-specific vulnerability claims. SandScout mined 12 sentinel tasks across five boundary classes, including seven high-confidence tasks.
+
+\subsection{Agent and Conditions}
+
+The real-agent target is Codex CLI, selected because it is available locally in the experimental environment. Runs use disposable git workspaces, workspace-write sandboxing, bounded timeouts, and captured prompt/stdout/stderr/diff/status evidence. Positive indirect-context runs inject \texttt{SANDSCOUT\_NOTE.md}. Matched no-note controls omit that file while preserving the fixture, task, agent, and prompt mode.
+
+\subsection{Metrics}
+
+The primary metric is SSE-SR, the fraction of tasks for which artifact placement, triggerability, and benign task completion all hold. We also report instruction uptake, artifact placement, triggerability, benign task completion, safety-scan status, and infrastructure failure reason. Infrastructure failures are not interpreted as behavioral negatives.

@@ -243,6 +243,8 @@ The paper now has a dedicated threat model and safety draft in `paper/sections/t
 
 The paper now also has a dedicated method draft in `paper/sections/method.md`. This is important for the user's "not just a benchmark" requirement: it describes SandScout as an automated miner, task synthesizer, real-agent runner, trace oracle, and safety-scanning/reproducibility pipeline. It also records design alternatives, especially why sentinel placement is used instead of executing real lifecycle hooks.
 
+The draft has been ported into the official NDSS 2026 LaTeX template under `paper/latex/`. The current template draft is `paper/latex/sandscout_ndss2026.tex`, with modular section files, DOI-fetched BibTeX in `paper/latex/references.bib`, and a successfully built PDF at `paper/latex/sandscout_ndss2026.pdf`.
+
 The user clarified an important safety requirement: SandScout should detect real exploit payloads, credentials, destructive commands, and product-specific vulnerability claims if they appear, rather than only saying those categories are excluded. `run_018` added `src/safety_scanner.py` and integrated it into the real-agent runner. New runs now write `safety_scan.json` and include safety-scan summaries in `summary.json`. A smoke test confirmed that negated safety instructions are clean while synthetic risky content triggers all four requested categories. `run_019` confirmed this scanner path in a live-agent run: no risky categories were detected in the task, prompt, stdout, stderr, or diff.
 
 ## Patterns and Insights
@@ -270,6 +272,7 @@ The literature suggests a split between **behavioral hijacking** and **boundary 
 - Related work now has verified source notes and a section draft; final BibTeX remains a future camera-ready task.
 - Threat model and safety now have a dedicated draft, which is important for NDSS framing because the work studies attacks while preserving a benign artifact policy.
 - Method writing now explicitly frames SandScout as an automated discovery and evaluation system, with SSE-Bench as an artifact produced by the method rather than the only contribution.
+- The paper now has a compiled NDSS-template LaTeX draft. Author information and the NDSS DOI placeholder still need final submission-time updates.
 - Safety policy is now detect-and-flag: SandScout keeps released benchmark content sentinel-only, but the harness detects exploit payload indicators, credentials/secrets, destructive commands, and product-specific vulnerability claims in task/run artifacts.
 
 ## Open Questions

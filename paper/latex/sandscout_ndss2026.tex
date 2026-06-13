@@ -1,0 +1,59 @@
+% SandScout NDSS 2026 draft.
+% Built from the official NDSS 2026 IEEEtran template downloaded from:
+% https://www.ndss-symposium.org/ndss2026/submissions/templates/
+
+\documentclass[conference]{IEEEtran}
+
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\pagestyle{plain}
+\hyphenation{Sand-Scout sand-box sand-boxes tool-chain tool-chains}
+
+\begin{document}
+
+\title{SandScout: Automatically Mining Semantic Sandbox Escape Paths in AI Coding Agents}
+
+\author{\IEEEauthorblockN{Anonymous Author(s)}
+\IEEEauthorblockA{Anonymous Institution(s)\\
+Email: anonymous@example.com}}
+
+\IEEEoverridecommandlockouts
+\makeatletter\def\@IEEEpubidpullup{6.5\baselineskip}\makeatother
+\IEEEpubid{\parbox{\columnwidth}{
+    Network and Distributed System Security (NDSS) Symposium 2026\\
+    23--27 February 2026, San Diego, CA, USA\\
+    ISBN 979-8-9919276-8-0\\
+    https://dx.doi.org/10.14722/ndss.2026.[23$|$24]xxxx\\
+    www.ndss-symposium.org
+}
+\hspace{\columnsep}\makebox[\columnwidth]{}}
+
+\maketitle
+
+\begin{abstract}
+AI coding agents increasingly operate inside sandboxes, yet their effective security boundary extends beyond operating-system isolation. Agents edit repositories whose configuration, tool manifests, package metadata, editor settings, continuous-integration workflows, and instruction files may later be interpreted by host-side runtimes or automation. This creates semantic sandbox escape paths: an adversary can induce an agent to create or modify artifacts that are inert during sandboxed editing but consequential when the workspace crosses a lifecycle boundary. We present \emph{SandScout}, an automated mining and evaluation method for this attack surface. SandScout statically discovers boundary-bearing repository artifacts, generates harmless sentinel tasks that model adversarial repository context, runs real coding agents in disposable worktrees, evaluates resulting traces with a triggerability oracle, and scans artifacts for unsafe content. Unlike benchmark-only evaluations, SandScout explains where candidate attacks come from and how to systematically discover new ones. Our current prototype mines 12 tasks across five boundary classes in a six-repository fixture corpus and finds four positive indirect-context Codex CLI results across tool-manifest, package-lifecycle, startup/runtime, and CI workflow surfaces, while three matched no-note controls remain at zero.
+\end{abstract}
+
+\begin{IEEEkeywords}
+AI agents, coding agents, sandboxing, prompt injection, software supply chain, security measurement
+\end{IEEEkeywords}
+
+\input{sections/introduction}
+\input{sections/background}
+\input{sections/threat_model}
+\input{sections/method}
+\input{sections/evaluation}
+\input{sections/results}
+\input{sections/related_work}
+\input{sections/limitations}
+\input{sections/conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

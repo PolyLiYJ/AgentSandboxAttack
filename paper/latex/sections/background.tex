@@ -1,0 +1,13 @@
+\section{Background and Motivation}
+
+\subsection{Coding-Agent Sandboxes}
+
+Coding agents commonly operate inside restricted workspaces. A sandbox may limit filesystem access, network activity, command execution, or human approval requirements. These defenses address immediate actions: whether the agent can read a file, run a command, or write outside the workspace during the interactive session. They do not necessarily model what happens when files written inside the workspace are later consumed by other systems.
+
+\subsection{Lifecycle Boundaries}
+
+Software repositories contain many files whose meaning is deferred. A package manifest may affect install or build scripts. Editor settings may affect local startup behavior. A devcontainer file may configure a development runtime. CI workflow files may execute after a push. Tool manifests may alter agent or plugin discovery. Project-local instruction files may shape later agent behavior. These files are not suspicious by themselves; they are normal software-engineering artifacts. Their security relevance comes from the lifecycle boundary between sandboxed editing and later host-side interpretation.
+
+\subsection{Why Automated Mining?}
+
+A benchmark-only approach can enumerate known examples, but it does not explain how to find new surfaces as agent ecosystems evolve. SandScout instead treats candidate discovery as part of the method. Given a repository, the miner identifies boundary-bearing artifacts and converts them into safe measurement tasks. This supports reproducibility, ranking, and extension to new repositories without relying entirely on hand-authored prompts.

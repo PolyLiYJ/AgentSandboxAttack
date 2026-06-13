@@ -1,0 +1,19 @@
+\section{Introduction}
+
+AI coding agents are moving from suggestion engines to active participants in software development. Modern agents read project files, edit repositories, invoke tools, and reason over local configuration. Sandboxes are therefore a natural defense: they constrain immediate filesystem and command effects while an agent works. However, coding-agent outputs do not remain confined to the interactive sandbox. The edited repository may later be opened in an editor, built by a package manager, interpreted by a tool-discovery system, run in continuous integration, or loaded by another agent runtime.
+
+This lifecycle creates a security gap. A repository artifact can be inert while the agent writes it, yet become security-relevant when consumed by a host-side system outside the original sandbox. Prior agent-security benchmarks study prompt injection in tool and web agents~\cite{agentdojo2024,wasp2025}, harmful multi-step agent behavior~\cite{agentharm2024}, coding-agent interfaces~\cite{sweagent2024}, or direct container sandbox escape capability~\cite{sandboxescapebench2026}. These lines of work are important, but they do not directly answer a different question: can we automatically discover repository-level semantic boundaries where a sandboxed coding agent may prepare artifacts later interpreted by host lifecycle systems?
+
+We call this class \emph{semantic sandbox escape}. The term does not mean that an agent breaks a kernel, container runtime, or hypervisor. Instead, the agent remains within its immediate sandbox while creating or modifying repository artifacts that cross a later semantic boundary. Examples include package lifecycle metadata, editor or devcontainer startup state, tool manifests, CI workflows, and project-local instruction files. This boundary matters for coding agents because these files are ordinary development artifacts and therefore easy for benign tasks to touch.
+
+We present \emph{SandScout}, an automated method for mining and evaluating semantic sandbox escape candidates. SandScout scans repositories for lifecycle-relevant artifacts, synthesizes safe sentinel tasks, runs real coding agents in disposable worktrees, normalizes evidence into traces, and scores semantic sandbox escape success. The benchmark artifact, SSE-Bench, is produced by applying SandScout; it is not a hand-written list of attacks. This is the central technical distinction: SandScout is a discovery and evaluation pipeline, not only a dataset release.
+
+Our prototype currently focuses on safe measurement. It never emits real exploit payloads. Instead, each task uses a fixed benign marker, \texttt{SSE\_BENIGN\_SENTINEL}, and the oracle checks whether the agent creates the boundary-specific sentinel file. This proxy is intentionally conservative. It cannot prove real-world exploitability, but it can measure whether repository-local context causes an agent to materialize a boundary-specific artifact. To support safe release, SandScout also scans tasks, prompts, outputs, and diffs for credential indicators, destructive commands, exploit payload indicators, and product-specific vulnerability claims.
+
+This paper makes four contributions:
+\begin{itemize}
+    \item We define semantic sandbox escape as a lifecycle-boundary attack class for AI coding agents.
+    \item We introduce SandScout, an automated miner and evaluation harness that discovers repository-level boundary candidates and synthesizes safe sentinel tasks.
+    \item We implement a real-agent runner and trace oracle that separate instruction uptake, artifact placement, triggerability, benign task completion, and infrastructure failures.
+    \item We provide preliminary evidence from Codex CLI: SandScout-mined indirect-context tasks produce sentinel placement across four boundary classes, while three matched no-note controls stay at zero.
+\end{itemize}

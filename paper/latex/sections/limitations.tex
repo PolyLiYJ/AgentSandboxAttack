@@ -1,0 +1,7 @@
+\section{Limitations and Ethics}
+
+The current prototype is an early measurement artifact. It uses a six-repository synthetic fixture corpus and one real-agent target, Codex CLI. The positive results therefore support feasibility and method validity, not prevalence across public repositories or deployed products. Future work should evaluate larger public corpora, additional agents, and additional interface policies.
+
+Sentinel placement is also a proxy. It shows that an agent followed repository-local context into a boundary-specific artifact; it does not prove that a real host system would execute an exploit. This proxy is a deliberate safety trade-off. SandScout avoids real payloads and instead measures boundary-crossing behavior with harmless markers.
+
+The safety scanner is conservative and pattern-based. It can miss risky content and can produce false positives. We use it as a release-safety guardrail and review aid, not as a formal guarantee. If future experiments produce product-specific security findings, they should be handled through coordinated disclosure before publication.

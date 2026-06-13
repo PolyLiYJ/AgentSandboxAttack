@@ -1,0 +1,19 @@
+\section{Related Work}
+
+\subsection{Prompt Injection and Agent Hijacking}
+
+AgentDojo and WASP are the closest benchmark-style precedents for SandScout~\cite{agentdojo2024,wasp2025}. AgentDojo evaluates prompt-injection attacks and defenses for tool-using agents over untrusted data, while WASP evaluates realistic end-to-end prompt-injection attacks against web agents. Both establish that agent security must be evaluated in task environments with realistic adversary placement and decomposed success metrics. SandScout differs in the boundary it measures: rather than asking whether untrusted content redirects a web or tool action, it asks whether repository-local context causes a coding agent to prepare artifacts that become meaningful when the workspace crosses a host lifecycle boundary.
+
+AgentHarm studies harmful multi-step agent tasks and shows why agent evaluations must measure capability retention across tool-mediated workflows, not only first-turn refusal~\cite{agentharm2024}. SandScout adopts the same premise that agentic behavior must be evaluated end-to-end, but replaces harmful goals with benign sentinels that model semantic sandbox escape without executing payloads.
+
+\subsection{Coding-Agent Interfaces}
+
+SWE-agent introduced the framing of agent-computer interfaces for software-engineering agents and showed that interface design materially affects agent performance and behavior~\cite{sweagent2024}. SandScout builds on this observation from a security angle: if interfaces, repository context, and tool affordances shape behavior, then sandbox evaluation must include the repository artifacts and lifecycle metadata that coding agents read and write.
+
+\subsection{Sandbox Escape Benchmarks}
+
+SandboxEscapeBench evaluates frontier LLM capabilities for escaping container sandboxes~\cite{sandboxescapebench2026}. This is adjacent but not identical to SandScout. Container escape benchmarks measure whether an agent can exploit or abuse isolation mechanisms such as misconfiguration, runtime weaknesses, privilege allocation, or kernel flaws. SandScout instead targets semantic sandbox escape: the agent may stay inside the filesystem and command sandbox, but still create repository artifacts that host-side automation later interprets.
+
+\subsection{Agentic Coding-Assistant Prompt Injection}
+
+Recent work on prompt injection attacks against agentic coding assistants catalogs delivery vectors, attack modalities, tool poisoning, skills, and protocol ecosystems~\cite{codingassistantinjection2026}. SandScout uses this broader taxonomy as threat-model background but contributes an automated mining and evaluation method. The key difference is methodological: SandScout does not only enumerate attacks; it scans repository artifacts, synthesizes sentinel tasks, runs real agents, and scores trace evidence.

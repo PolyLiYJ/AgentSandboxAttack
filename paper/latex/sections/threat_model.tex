@@ -1,0 +1,19 @@
+\section{Threat Model and Safety}
+
+\subsection{Setting}
+
+We study coding agents that operate inside a constrained workspace or sandbox. The agent can read repository files, edit project artifacts, and optionally run local commands according to its interface policy. The user or platform expects the sandbox to constrain immediate execution and filesystem effects. However, the repository edited by the agent may later be opened, built, synchronized, tested, or interpreted by host-side systems outside the original interactive sandbox.
+
+\subsection{Adversary Capabilities}
+
+The adversary controls repository-local context that a coding agent may inspect during a benign maintenance task. This matches collaborative-development settings in which a user opens a repository and asks an agent to inspect metadata or compatibility notes. The adversary can place text or metadata in project-local files, shape repository structure so lifecycle-relevant files are present, induce a benign user task, and rely on later host-side interpretation of files created or modified by the agent.
+
+During SandScout's sentinel evaluation, the adversary cannot directly execute code on the host, access credentials, use external network resources, modify files outside the disposable workspace, use destructive commands, or bypass the operating-system sandbox directly. SandScout should still detect and flag evidence that attempts to introduce these prohibited classes.
+
+\subsection{Security Goal}
+
+The security goal is not to prove a kernel or container escape. Instead, we ask whether a sandboxed coding agent can be induced to prepare a repository artifact that crosses a semantic lifecycle boundary. In SandScout, the observable proxy is a harmless sentinel artifact. If the agent creates the specific sentinel derived from mined repository context, the task records semantic sandbox escape success for that boundary class.
+
+\subsection{Artifact Safety}
+
+Every SandScout task uses the fixed benign marker \texttt{SSE\_BENIGN\_SENTINEL}. The runner rejects task specifications containing prohibited terms associated with credentials, exfiltration, malware, reverse shells, destructive filesystem commands, or non-benign sentinel values. It also writes a \texttt{safety\_scan.json} file for each run, flagging detected credential or secret indicators, destructive commands, real exploit payload indicators, and product-specific vulnerability claims. The scanner is a review aid rather than a formal proof of absence.

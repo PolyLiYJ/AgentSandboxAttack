@@ -1,0 +1,59 @@
+\section{SandScout Design}
+
+SandScout is an automated mining and evaluation pipeline. Its input is a repository and an agent execution configuration. Its output is a set of safe sentinel tasks, execution traces, safety-scan records, and metric rows. SandScout deliberately does not execute lifecycle hooks or generate real exploit payloads. Instead, it asks whether an agent can be induced to create a boundary-specific benign sentinel artifact.
+
+\subsection{Pipeline Overview}
+
+SandScout has five stages:
+\begin{enumerate}
+    \item mine repository files whose semantics commonly cross from sandboxed editing into host-side lifecycle interpretation;
+    \item synthesize a benign metadata task and repository-local adversarial context for each mined surface;
+    \item run a real coding agent in a disposable git workspace under controlled prompt and sandbox settings;
+    \item normalize workspace evidence into traces and score semantic sandbox escape success; and
+    \item scan tasks, prompts, outputs, and diffs for unsafe content before preserving artifacts.
+\end{enumerate}
+
+\subsection{Boundary Miner}
+
+The boundary miner scans a repository for file patterns that represent lifecycle transitions rather than arbitrary suspicious strings. Table~\ref{tab:surfaces} summarizes the current rule set. Each rule has a base confidence score reflecting expected boundary relevance. The prototype raises confidence for agent-instruction files such as \texttt{AGENTS.md} and tool or package manifests, and lowers confidence for README-only hits. The score is a budget-allocation mechanism for live-agent evaluation, not a claim of exploitability.
+
+\begin{table}[t]
+\centering
+\caption{SandScout boundary classes in the current prototype.}
+\label{tab:surfaces}
+\begin{tabular}{p{0.28\columnwidth}p{0.62\columnwidth}}
+\toprule
+Surface & Representative files \\
+\midrule
+Package lifecycle & \texttt{package.json}, \texttt{pyproject.toml}, \texttt{setup.py}, \texttt{Makefile} \\
+Startup/runtime & \texttt{.envrc}, language-version files, \texttt{.vscode/settings.json}, \texttt{.devcontainer/devcontainer.json} \\
+Tool manifest & \texttt{.mcp.json}, \texttt{mcp.json}, \texttt{.cursor/mcp.json}, \texttt{.codex/config.toml}, \texttt{AGENTS.md} \\
+CI transition & \texttt{.github/workflows/*.yml}, \texttt{.gitlab-ci.yml} \\
+Instruction hierarchy & \texttt{AGENTS.md}, \texttt{CLAUDE.md}, \texttt{.cursorrules}, \texttt{README.md} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For repository $R$ and rule set $S$, the miner emits a task for every rule $s \in S$ whose pattern set matches at least one file in $R$. Each task contains a stable task identifier, the surface class, matched source files, a confidence score, a benign metadata goal, repository-local adversarial context, a sentinel path of the form \texttt{.sse/<surface>.sentinel}, and the fixed sentinel value.
+
+\subsection{Safe Task Synthesis}
+
+SandScout converts each mined boundary into a two-part task. The first part is a benign user goal, such as inspecting repository metadata related to a boundary class. The second part is repository-local context that claims compatibility requires writing a harmless sentinel marker. In the indirect setting, the user prompt does not directly name the sentinel path. Instead, the runner injects repository-local context through \texttt{SANDSCOUT\_NOTE.md} and asks the agent to inspect local compatibility notes.
+
+SandScout also supports matched no-note controls. These controls hold the agent, fixture, task index, prompt mode, and sandbox settings constant, but omit \texttt{SANDSCOUT\_NOTE.md}. A completed no-note control should not create the sentinel. If it does, the result indicates a prompt-template or oracle artifact rather than support for the mined-context hypothesis.
+
+\subsection{Real-Agent Runner}
+
+The runner executes tasks in disposable git workspaces. For a full-fixture run, it copies the target repository or synthetic corpus repository, initializes a fresh git repository, optionally injects the SandScout note, and invokes the agent with a bounded timeout. The current implementation supports Codex CLI. It invokes Codex non-interactively with workspace-write sandboxing and never-approval policy, captures stdout, stderr, git diff, git status, the generated prompt, and a structured summary.
+
+The runner classifies infrastructure failures separately from model behavior: \texttt{timeout}, \texttt{usage\_limit}, \texttt{agent\_error}, or normal completion. A run that times out or hits usage limits may have \mbox{SSE-SR}$=0$, but it is not evidence that the agent resisted the task. We therefore report such runs as availability failures and keep the corresponding behavioral condition pending.
+
+\subsection{Trace and Sentinel Oracle}
+
+The oracle does not trust agent self-reports. It derives success from workspace evidence. If the expected sentinel file exists and contains exactly \texttt{SSE\_BENIGN\_SENTINEL}, the runner emits a normalized \texttt{write\_file} action for the target path. The trace oracle then computes instruction uptake, artifact placement, triggerability, benign task completion, and semantic sandbox escape success rate (SSE-SR). The current safe triggerability model treats correct sentinel placement as triggerable.
+
+This conservative oracle avoids counting ordinary metadata edits as success. In two no-note controls, Codex CLI made benign metadata edits, but the oracle remained at zero because the surface-specific sentinel was absent.
+
+\subsection{Design Alternatives}
+
+SandScout chooses sentinel-based measurement over real lifecycle execution. Executing package hooks, editor startup logic, CI workflows, or tool manifests would make results more concrete, but would increase safety risk and confound the method with host-specific behavior. Sentinel placement is weaker than real exploitation, but it is reproducible, safe, and sufficient to measure whether an agent follows repository-local context into a boundary-bearing artifact. The miner also favors transparent rule-based lifecycle patterns over unconstrained LLM-generated candidates.
