@@ -6,6 +6,7 @@ This directory contains a working NDSS 2026-style LaTeX draft.
 - `sandscout_ndss2026.tex` is the SandScout paper draft using the template style.
 - `sections/` contains the paper body.
 - `references.bib` contains DOI-fetched arXiv BibTeX entries with stable project keys.
+- `sandscout_ndss2026.pdf` is a compiled snapshot generated with `latexmk`.
 
 Build:
 
@@ -26,3 +27,4 @@ Notes:
 - The DOI in the NDSS copyright block is still the official template placeholder.
 - The draft uses only verified academic references from `literature/verified_sources.md`.
 - Industry motivation sources are intentionally not cited until their metadata is verified.
+- The artifact section includes reproduction commands for mining and scoring. Live real-agent runs depend on local Codex CLI authentication and should be run in small controlled batches.

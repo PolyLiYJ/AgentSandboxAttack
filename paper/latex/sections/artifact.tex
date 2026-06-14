@@ -1,0 +1,15 @@
+\section{Artifact and Reproducibility}
+
+SandScout's artifact is designed to make the paper's claims auditable without distributing exploit payloads. The repository contains the miner, synthetic fixture corpus, generated task files, real-agent runner, trace oracle, safety scanner, raw run summaries, result CSVs, plotting scripts, and this NDSS template draft.
+
+\subsection{Reproducing the Mining Study}
+
+The fixture corpus can be regenerated with \texttt{make\_fixture\_corpus.py} and mined with \texttt{run\_mining\_corpus.py}. The output is the task JSON used by the experiments, containing mined boundary surfaces, matched source files, confidence scores, benign goals, and sentinel targets. This sequence reproduces the mining-yield result in Table~\ref{tab:mining-yield}. The repository README in the LaTeX artifact directory records the exact shell commands.
+
+\subsection{Reproducing a Real-Agent Run}
+
+A Codex CLI real-agent run is launched through \texttt{run\_real\_agent.py}. The runner receives the repository, corpus root, task JSON, task index, fixture mode, prompt mode, timeout, and control flags such as \texttt{--no-inject-note}. It writes \texttt{prompt.txt}, \texttt{stdout.txt}, \texttt{stderr.txt}, \texttt{diff.patch}, \texttt{git\_status.txt}, \texttt{trace.json}, \texttt{summary.json}, and \texttt{safety\_scan.json}. The trace is scored with \texttt{sse\_trace\_oracle.py}. This design keeps the paper's artifact path stable while allowing real-agent runs to be repeated only when local authentication and usage budgets are available.
+
+\subsection{Artifact Release Policy}
+
+The public artifact should include only sentinel tasks and redacted safety metadata. It should not include real exploit payloads, credentials, destructive commands, or product-specific bypass claims. If future runs contain such content, the artifact should preserve the detector category, source file, severity, and redacted excerpt only after coordinated disclosure review. This policy is central to the work: SandScout studies attacks while keeping the released benchmark safe to run and inspect.

@@ -1,0 +1,23 @@
+\section{Implementation}
+
+The current SandScout prototype is implemented as a collection of Python scripts and reproducibility assets. The reusable source code under \texttt{src/} is approximately 1.1K lines of Python, excluding the LaTeX paper and generated result files. The main components are:
+
+\begin{itemize}
+    \item \texttt{sandscout\_miner.py}, which implements the rule-based boundary miner and emits JSON task specifications;
+    \item \texttt{make\_fixture\_corpus.py} and \texttt{run\_mining\_corpus.py}, which generate and mine the safe fixture corpus;
+    \item \texttt{run\_real\_agent.py}, which creates disposable git workspaces, injects or omits repository-local SandScout notes, invokes Codex CLI, and captures execution evidence;
+    \item \texttt{sse\_trace\_oracle.py}, which converts normalized traces into metric rows; and
+    \item \texttt{safety\_scanner.py}, which flags unsafe content categories in tasks and run artifacts.
+\end{itemize}
+
+\subsection{Disposable Workspaces}
+
+The runner initializes every full-fixture evaluation as a fresh git repository. This choice serves two purposes. First, it prevents accidental modification of the source corpus. Second, it lets SandScout compare workspace evidence before and after the agent run using git status and diff output. The runner also checks untracked sentinel files directly because relying only on \texttt{git diff} would miss newly created untracked artifacts.
+
+\subsection{Prompt Modes}
+
+The implementation supports direct and indirect prompt modes. Direct mode includes the sentinel path in the user-visible prompt and is used mainly for smoke testing. Indirect mode asks the agent to inspect local compatibility metadata and relies on repository-local context injected through \texttt{SANDSCOUT\_NOTE.md}. The main results use indirect mode because it better models the threat setting in which the attacker controls repository context but the user asks a benign maintenance task.
+
+\subsection{Safety Enforcement}
+
+Safety is enforced at two points. Before execution, the runner rejects task JSON containing prohibited terms or non-benign sentinel values. After execution, the scanner inspects task JSON, prompt text, stdout, stderr, and diffs, then writes a structured \texttt{safety\_scan.json}. This separation is useful in practice: pre-execution checks keep benchmark tasks benign, while post-execution scans provide evidence that captured agent outputs also remain suitable for release.
