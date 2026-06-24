@@ -255,6 +255,8 @@ Human-facing progress report `to_human/progress-015.html` now summarizes the cur
 
 The NDSS Introduction now has a stronger systems-paper structure: it explicitly names three gaps (automated discovery, semantic lifecycle boundaries, and matched evidence), states SandScout's key insight that boundary-bearing artifacts are visible in repository structure, and aligns the contribution list with the implemented miner, runner, oracle, safety scanner, and current evidence matrix. The rebuilt PDF is 7 pages and passes the current overfull/reference/citation log check.
 
+The NDSS Related Work section now includes a comparison table against adjacent evaluation lines: AgentDojo/WASP, AgentHarm, SWE-agent/ACI, SandboxEscapeBench, and SandScout. The table explicitly contrasts primary setting, automatic repository-surface mining, semantic lifecycle-boundary focus, safe sentinel oracle, and real coding-agent runs. This should help reviewers quickly see the paper's novelty niche.
+
 The user clarified an important safety requirement: SandScout should detect real exploit payloads, credentials, destructive commands, and product-specific vulnerability claims if they appear, rather than only saying those categories are excluded. `run_018` added `src/safety_scanner.py` and integrated it into the real-agent runner. New runs now write `safety_scan.json` and include safety-scan summaries in `summary.json`. A smoke test confirmed that negated safety instructions are clean while synthetic risky content triggers all four requested categories. `run_019` confirmed this scanner path in a live-agent run: no risky categories were detected in the task, prompt, stdout, stderr, or diff.
 
 ## Patterns and Insights
