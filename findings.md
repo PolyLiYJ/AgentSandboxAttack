@@ -247,6 +247,8 @@ The draft has been ported into the official NDSS 2026 LaTeX template under `pape
 
 The NDSS LaTeX draft now includes dedicated Implementation and Artifact/Reproducibility sections. This strengthens the systems-paper shape: it describes the Python prototype components, disposable git workspaces, direct vs indirect prompt modes, safety enforcement, exact mining/scoring reproduction commands, and the sentinel-only artifact release policy.
 
+The NDSS LaTeX draft now also includes a Figure 1-style pipeline overview inside the SandScout Design section. The figure makes the paper's framing more legible: repositories flow through the boundary miner, task synthesizer, real-agent runner, trace oracle, safety scanner, and finally SSE-Bench rows plus paper artifacts. This directly supports the "automated method, not benchmark-only" narrative.
+
 The user clarified an important safety requirement: SandScout should detect real exploit payloads, credentials, destructive commands, and product-specific vulnerability claims if they appear, rather than only saying those categories are excluded. `run_018` added `src/safety_scanner.py` and integrated it into the real-agent runner. New runs now write `safety_scan.json` and include safety-scan summaries in `summary.json`. A smoke test confirmed that negated safety instructions are clean while synthetic risky content triggers all four requested categories. `run_019` confirmed this scanner path in a live-agent run: no risky categories were detected in the task, prompt, stdout, stderr, or diff.
 
 ## Patterns and Insights

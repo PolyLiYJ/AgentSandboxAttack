@@ -4,7 +4,7 @@ SandScout is an automated mining and evaluation pipeline. Its input is a reposit
 
 \subsection{Pipeline Overview}
 
-SandScout has five stages:
+Figure~\ref{fig:pipeline} summarizes the SandScout workflow. SandScout has five stages:
 \begin{enumerate}
     \item mine repository files whose semantics commonly cross from sandboxed editing into host-side lifecycle interpretation;
     \item synthesize a benign metadata task and repository-local adversarial context for each mined surface;
@@ -12,6 +12,34 @@ SandScout has five stages:
     \item normalize workspace evidence into traces and score semantic sandbox escape success; and
     \item scan tasks, prompts, outputs, and diffs for unsafe content before preserving artifacts.
 \end{enumerate}
+
+\begin{figure}[t]
+\centering
+\setlength{\fboxsep}{5pt}
+\fbox{\begin{minipage}{0.92\columnwidth}
+\centering
+\small
+\begin{tabular}{@{}c@{}}
+Repository \\
+$\downarrow$ \\
+Boundary miner \\
+\footnotesize lifecycle artifacts and confidence scores \\
+$\downarrow$ \\
+Task synthesizer \\
+\footnotesize benign goal, indirect context, sentinel target \\
+$\downarrow$ \\
+Real-agent runner \\
+\footnotesize disposable workspace, prompt mode, timeout class \\
+$\downarrow$ \\
+Trace oracle and safety scanner \\
+\footnotesize SSE-SR metrics plus unsafe-content gates \\
+$\downarrow$ \\
+SSE-Bench rows and paper artifacts
+\end{tabular}
+\end{minipage}}
+\caption{SandScout mines semantic sandbox-boundary candidates and turns them into safe, reproducible real-agent evaluations. The benchmark rows are outputs of the method, not manually authored attacks.}
+\label{fig:pipeline}
+\end{figure}
 
 \subsection{Boundary Miner}
 
