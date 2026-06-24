@@ -251,6 +251,8 @@ The NDSS LaTeX draft now also includes a Figure 1-style pipeline overview inside
 
 The NDSS Results section now includes an integrated paired control matrix table. It presents all four positive real-agent Codex CLI runs, the three completed no-note controls at SSE-SR=0.00, and the pending tool-manifest control with its timeout status. This should make the evidence shape clearer to reviewers and avoid overclaiming the pending control.
 
+Human-facing progress report `to_human/progress-015.html` now summarizes the current NDSS paper state: method-paper framing, official-template status, pipeline figure, integrated control matrix, sentinel-only artifact policy, and the remaining tool-manifest no-note control gap. This report is intended as a quick checkpoint for reviewing whether the current story is ready to deepen or needs another live-agent control.
+
 The user clarified an important safety requirement: SandScout should detect real exploit payloads, credentials, destructive commands, and product-specific vulnerability claims if they appear, rather than only saying those categories are excluded. `run_018` added `src/safety_scanner.py` and integrated it into the real-agent runner. New runs now write `safety_scan.json` and include safety-scan summaries in `summary.json`. A smoke test confirmed that negated safety instructions are clean while synthetic risky content triggers all four requested categories. `run_019` confirmed this scanner path in a live-agent run: no risky categories were detected in the task, prompt, stdout, stderr, or diff.
 
 ## Patterns and Insights
