@@ -8,6 +8,19 @@ Coding agents commonly operate inside restricted workspaces. A sandbox may limit
 
 Software repositories contain many files whose meaning is deferred. A package manifest may affect install or build scripts. Editor settings may affect local startup behavior. A devcontainer file may configure a development runtime. CI workflow files may execute after a push. Tool manifests may alter agent or plugin discovery. Project-local instruction files may shape later agent behavior. These files are not suspicious by themselves; they are normal software-engineering artifacts. Their security relevance comes from the lifecycle boundary between sandboxed editing and later host-side interpretation.
 
+\subsection{Motivating Observations}
+
+SandScout is motivated by three observations from the repository structures and real-agent traces in our study.
+
+\textbf{Observation 1: Boundary-bearing artifacts are enumerable.}
+The current miner found 12 candidate tasks across five surface classes in a six-repository fixture corpus: package lifecycle metadata, startup/runtime configuration, tool manifests, CI transitions, and instruction hierarchy files. This result suggests that semantic sandbox boundaries are not arbitrary prompt strings. They often appear as conventional repository files with recognizable lifecycle roles. SandScout therefore treats candidate discovery as a static mining problem before invoking a real agent.
+
+\textbf{Observation 2: Repository-local context changes agent behavior across surfaces.}
+In four Codex CLI runs, SandScout-mined indirect context caused the agent to create the expected benign sentinel across tool-manifest, package-lifecycle, startup/runtime, and CI workflow surfaces. The user prompt did not directly request the sentinel path; the relevant request appeared in repository-local context. This observation motivates measuring whether an agent transfers trust from project context into boundary-bearing artifacts, rather than only whether it follows a direct user request.
+
+\textbf{Observation 3: Ordinary edits are not sufficient evidence.}
+Matched no-note controls for CI, package lifecycle, and startup/runtime remained at \mbox{SSE-SR}$=0.00$. Two controls still made benign metadata edits, yet the oracle did not count them as successes because the surface-specific sentinel was absent. The remaining tool-manifest no-note condition is pending because one run hit a usage limit and its retry timed out. These results motivate an oracle that distinguishes boundary-specific artifact placement from generic repository modification and reports availability failures separately from model behavior.
+
 \subsection{Why Automated Mining?}
 
 A benchmark-only approach can enumerate known examples, but it does not explain how to find new surfaces as agent ecosystems evolve. SandScout instead treats candidate discovery as part of the method. Given a repository, the miner identifies boundary-bearing artifacts and converts them into safe measurement tasks. This supports reproducibility, ranking, and extension to new repositories without relying entirely on hand-authored prompts.

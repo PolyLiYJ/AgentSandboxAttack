@@ -287,6 +287,7 @@ The literature suggests a split between **behavioral hijacking** and **boundary 
 - The paper now has a compiled NDSS-template LaTeX draft. Author information and the NDSS DOI placeholder still need final submission-time updates.
 - The NDSS draft now has implementation and artifact sections, which should help reviewers see SandScout as a built, reproducible system rather than only a conceptual benchmark.
 - Safety policy is now detect-and-flag: SandScout keeps released benchmark content sentinel-only, but the harness detects exploit payload indicators, credentials/secrets, destructive commands, and product-specific vulnerability claims in task/run artifacts.
+- The NDSS Background/Motivation now follows an observation-driven systems-paper structure: enumerable boundary artifacts motivate static mining; four cross-surface positives motivate repository-context evaluation; and three completed zero-SSE-SR controls motivate a sentinel-specific oracle. The tool-manifest control remains explicitly pending because its two attempts ended in usage-limit and timeout failures.
 
 ## Open Questions
 
